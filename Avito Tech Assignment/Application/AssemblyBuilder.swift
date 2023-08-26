@@ -8,15 +8,19 @@
 import UIKit
 
 protocol AssemblyBuilderProtocol {
-    func createMainVC(router: RouterProtocol) -> UIViewController
+    func createAdvertisementsViewController(router: RouterProtocol) -> UIViewController
     func createDetailModule() -> UIViewController
 }
 
 final class AssemblyBuilder: AssemblyBuilderProtocol {
-    func createMainVC(router: RouterProtocol) -> UIViewController {
+    func createAdvertisementsViewController(router: RouterProtocol) -> UIViewController {
         
         let networkService = NetworkService()
-        let viewController = ViewController(networkService: networkService)
+        let imageService = ImageService()
+        
+        let view = AdvertisementView()
+        
+        let viewController = AdvertisementsViewController(networkService: networkService, imageService: imageService, view: view)
         
         return viewController
     }

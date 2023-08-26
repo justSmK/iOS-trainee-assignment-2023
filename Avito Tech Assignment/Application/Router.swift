@@ -31,7 +31,7 @@ class Router: RouterProtocol {
     
     func initialViewController() {
         if let navigationController {
-            guard let mainViewController = assemblyBuilder?.createMainVC(router: self) else { return }
+            guard let mainViewController = assemblyBuilder?.createAdvertisementsViewController(router: self) else { return }
             navigationController.viewControllers = [mainViewController]
         }
     }

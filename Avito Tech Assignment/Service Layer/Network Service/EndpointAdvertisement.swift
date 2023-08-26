@@ -1,5 +1,5 @@
 //
-//  Endpoint.swift
+//  EndpointAdvertisement.swift
 //  Avito Tech Assignment
 //
 //  Created by Sergei Semko on 8/24/23.
@@ -9,7 +9,7 @@ import Foundation
 
 // https://www.avito.st/s/interns-ios/main-page.json
 
-enum Endpoint {
+enum EndpointAdvertisement {
     case fetchAdvertisements
     case fetchAdvertisementDetail(itemId: String)
     
