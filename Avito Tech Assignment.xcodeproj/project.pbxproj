@@ -90,6 +90,7 @@
 		BB542B102A9A36F900B14DEC /* CollectionAdvertisementProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionAdvertisementProtocol.swift; sourceTree = "<group>"; };
 		BB542B152A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewProtocol.swift; sourceTree = "<group>"; };
 		BB748C912A99E232005CB3B1 /* AdvertisementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewCell.swift; sourceTree = "<group>"; };
+		BBB9E0C52A9BCD01005B5420 /* Avito Tech Assignment.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Avito Tech Assignment.xctestplan"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +131,7 @@
 		BB0EFFEC2A9AA6D6009BA8B9 /* Avito Tech Assignment Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BBB9E0C52A9BCD01005B5420 /* Avito Tech Assignment.xctestplan */,
 				BB0EFFF42A9AA6DF009BA8B9 /* Service Layer Tests */,
 				BB0EFFED2A9AA6D6009BA8B9 /* Avito_Tech_Assignment_Tests.swift */,
 			);
@@ -139,6 +141,7 @@
 		BB0EFFF42A9AA6DF009BA8B9 /* Service Layer Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BB0EFFFB2A9AADFD009BA8B9 /* Mocks */,
 				BB0EFFF82A9AA942009BA8B9 /* Image Service Tests */,
 				BB0EFFF52A9AA6E7009BA8B9 /* Network Service Tests */,
 			);
@@ -148,7 +151,6 @@
 		BB0EFFF52A9AA6E7009BA8B9 /* Network Service Tests */ = {
 			isa = PBXGroup;
 			children = (
-				BB0EFFFB2A9AADFD009BA8B9 /* Mocks */,
 				BB0EFFF62A9AA710009BA8B9 /* NetworkServiceTest.swift */,
 			);
 			path = "Network Service Tests";

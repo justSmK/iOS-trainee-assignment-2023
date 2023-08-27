@@ -9,10 +9,20 @@ import Foundation
 
 final class NetworkService: NetworkServiceProtocol {
     
+    private let jsonDecoder: JSONDecoder
+    
     private var session: URLSession
     
     init(session: URLSession = URLSession(configuration: .default)) {
         self.session = session
+        self.jsonDecoder = JSONDecoder()
+        setupJsonDecoder()
+    }
+    
+    private func setupJsonDecoder() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        self.jsonDecoder.dateDecodingStrategy = .formatted(dateFormatter)
     }
     
     func fetchAdvertisements(completion: @escaping (Result<AdvertisementsResponse, APIError>) -> Void) {
@@ -39,8 +49,8 @@ final class NetworkService: NetworkServiceProtocol {
         #endif
         
         let task = session.dataTask(with: request) { (data, response, error) in
-            if let error = error as NSError? {
-                if error.domain == NSURLErrorDomain && error.code == NSURLErrorNotConnectedToInternet {
+            if let error {
+                if (error as NSError).domain == NSURLErrorDomain && (error as NSError).code == NSURLErrorNotConnectedToInternet {
                     completion(.failure(.noInternetConnection(error.localizedDescription)))
                 } else {
                     completion(.failure(.urlSessionError(error.localizedDescription)))
@@ -49,27 +59,21 @@ final class NetworkService: NetworkServiceProtocol {
             }
             
             guard let response = response as? HTTPURLResponse, response.status?.responseType == .success else {
-                completion(.failure(.serverError()))
+                let response = response as? HTTPURLResponse
+                completion(.failure(.serverError("Received HTTP status: \(String(describing: response?.status))")))
                 return
             }
             
             guard let data = data else {
-                completion(.failure(.invalidResponse()))
+                completion(.failure(.invalidResponse("No data received")))
                 return
             }
             
             do {
-                let decoder = JSONDecoder()
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                decoder.dateDecodingStrategy = .formatted(dateFormatter)
-                
-                let responseObject = try decoder.decode(T.self, from: data)
+                let responseObject = try self.jsonDecoder.decode(T.self, from: data)
                 completion(.success(responseObject))
             } catch {
-//                print("Raw data: \(String(data: data, encoding: .utf8) ?? "n/a")")
-//                print("Decoding error: \(error)")
-                completion(.failure(.decodingError()))
+                completion(.failure(.decodingError(error.localizedDescription)))
             }
         }
         

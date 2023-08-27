@@ -10,6 +10,12 @@ import UIKit.UIImage
 final class ImageService: ImageServiceProtocol {
     private var cache = NSCache<NSURL, UIImage>()
     
+    private var session: URLSession
+    
+    init(session: URLSession = URLSession(configuration: .default)) {
+        self.session = session
+    }
+    
     func fetchImage(itemId: String, completion: @escaping (Result<UIImage, APIError>) -> Void) {
         loadImage(endpoint: .fetchImage(itemId: itemId), completion: completion)
     }
@@ -34,7 +40,7 @@ final class ImageService: ImageServiceProtocol {
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         #endif
         
-        let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+        let task = session.dataTask(with: request) { [weak self] (data, response, error) in
             if let error = error as NSError? {
                 if error.domain == NSURLErrorDomain && error.code == NSURLErrorNotConnectedToInternet {
                     completion(.failure(.noInternetConnection(error.localizedDescription)))
@@ -72,7 +78,7 @@ final class ImageService: ImageServiceProtocol {
             return
         }
 
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+        let task = session.dataTask(with: url) { [weak self] data, response, error in
             if let error = error as NSError? {
                 if error.domain == NSURLErrorDomain && error.code == NSURLErrorNotConnectedToInternet {
                     completion(.failure(.noInternetConnection(error.localizedDescription)))
@@ -108,7 +114,7 @@ final class ImageService: ImageServiceProtocol {
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+        let task = session.dataTask(with: url) { [weak self] data, _, _ in
             if let data = data, let image = UIImage(data: data) {
                 self?.cache.setObject(image, forKey: url as NSURL)
             }

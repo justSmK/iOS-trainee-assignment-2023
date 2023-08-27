@@ -35,7 +35,7 @@ final class ImageServiceTest: XCTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 1)
     }
 
     func testFetchImageByURL() throws {
@@ -53,7 +53,7 @@ final class ImageServiceTest: XCTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 5.0)
+        wait(for: [expectation], timeout: 3)
     }
 
 }

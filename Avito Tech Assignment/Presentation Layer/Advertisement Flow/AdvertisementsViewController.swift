@@ -127,15 +127,7 @@ extension AdvertisementsViewController: UICollectionViewDataSource {
         
         let advertisement = advertisements[indexPath.item]
         
-//        let currentId = advertisement.id
         cell.currentId = advertisement.id
-//
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "EEEE, d MMM yyyy" // Или другой формат, соответствующий вашей строке
-//
-//        let newDate = dateFormatter.string(from: advertisement.createdDate)
-//        advertisement.createdDate = newDate
         
         cell.activityIndicator.startAnimating()
         cell.backgroundColor = .clear

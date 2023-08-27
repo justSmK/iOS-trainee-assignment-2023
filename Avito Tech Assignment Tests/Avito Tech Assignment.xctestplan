@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "0BE17A25-BA09-4429-BAEC-6295A0A63BB6",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Avito Tech Assignment.xcodeproj",
+      "identifier" : "BB1033FA2A97791A0077F568",
+      "name" : "Avito Tech Assignment"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:Avito Tech Assignment.xcodeproj",
+        "identifier" : "BB0EFFEA2A9AA6D6009BA8B9",
+        "name" : "Avito Tech Assignment Tests"
+      }
+    }
+  ],
+  "version" : 1
+}
