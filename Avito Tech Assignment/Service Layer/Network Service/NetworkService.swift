@@ -9,6 +9,12 @@ import Foundation
 
 final class NetworkService: NetworkServiceProtocol {
     
+    private var session: URLSession
+    
+    init(session: URLSession = URLSession(configuration: .default)) {
+        self.session = session
+    }
+    
     func fetchAdvertisements(completion: @escaping (Result<AdvertisementsResponse, APIError>) -> Void) {
         request(endpoint: .fetchAdvertisements, completion: completion)
     }
@@ -32,7 +38,7 @@ final class NetworkService: NetworkServiceProtocol {
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         #endif
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let task = session.dataTask(with: request) { (data, response, error) in
             if let error = error as NSError? {
                 if error.domain == NSURLErrorDomain && error.code == NSURLErrorNotConnectedToInternet {
                     completion(.failure(.noInternetConnection(error.localizedDescription)))

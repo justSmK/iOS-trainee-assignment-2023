@@ -14,8 +14,12 @@ protocol AssemblyBuilderProtocol {
 
 final class AssemblyBuilder: AssemblyBuilderProtocol {
     func createAdvertisementsViewController(router: RouterProtocol) -> UIViewController {
+        let configuration = URLSessionConfiguration.default
+        configuration.multipathServiceType = .aggregate
+        let urlSession = URLSession(configuration: configuration)
         
-        let networkService = NetworkService()
+        let networkService = NetworkService(session: urlSession)
+        
         let imageService = ImageService()
         
         let view = AdvertisementView()

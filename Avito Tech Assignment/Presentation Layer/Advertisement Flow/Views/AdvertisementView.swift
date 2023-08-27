@@ -9,8 +9,6 @@ import UIKit
 
 final class AdvertisementView: UIView {
     
-    weak var delegate: AdvertisementViewDelegate?
-    
     enum State {
         case loading
         case content

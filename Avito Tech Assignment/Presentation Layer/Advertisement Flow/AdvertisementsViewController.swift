@@ -179,3 +179,4 @@ extension AdvertisementsViewController: UICollectionViewDelegateFlowLayout {
         loadDetailData(for: advertisement)
     }
 }
+
