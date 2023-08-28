@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol ImageAPIClientProtocol {
+protocol ImageAPIClientProtocol: AnyObject {
     func fetchImageData(from url: URL, completion: @escaping (Result<Data, APIError>) -> Void)
 }

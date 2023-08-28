@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol NetworkServiceProtocol {
+protocol NetworkServiceProtocol: AnyObject {
     func performRequest(url: URL, httpMethod: HTTP.Method, completion: @escaping (Result<Data, APIError>) -> Void)
 }

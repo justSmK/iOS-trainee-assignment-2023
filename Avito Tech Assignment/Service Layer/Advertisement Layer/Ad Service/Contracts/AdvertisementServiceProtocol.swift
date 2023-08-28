@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol AdvertisementServiceProtocol {
+protocol AdvertisementServiceProtocol: AnyObject {
     func fetchAdvertisements(completion: @escaping (Result<AdvertisementsResponse, APIError>) -> Void)
     func fetchAdvertisementDetail(itemId: String, completion: @escaping (Result<AdvertisementDetail, APIError>) -> Void)
 }

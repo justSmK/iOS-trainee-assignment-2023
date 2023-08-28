@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol AdvertisementAPIClientProtocol {
+protocol AdvertisementAPIClientProtocol: AnyObject {
     func fetchData(from url: URL, completion: @escaping (Result<Data, APIError>) -> Void)
 }

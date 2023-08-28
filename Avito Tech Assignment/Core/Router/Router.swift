@@ -7,18 +7,7 @@
 
 import UIKit
 
-protocol RouterMain {
-    var navigationController: UINavigationController? { get set }
-    var assemblyBuilder: AssemblyBuilderProtocol? { get set }
-}
-
-protocol RouterProtocol: RouterMain {
-    func initialViewController()
-    func showDetail()
-    func popToRoot()
-}
-
-class Router: RouterProtocol {
+final class Router: RouterProtocol {
     
     var navigationController: UINavigationController?
     
@@ -31,8 +20,8 @@ class Router: RouterProtocol {
     
     func initialViewController() {
         if let navigationController {
-            guard let mainViewController = assemblyBuilder?.createAdvertisementsViewController(router: self) else { return }
-            navigationController.viewControllers = [mainViewController]
+            guard let advertisementsViewController = assemblyBuilder?.createAdvertisementsViewController(router: self) else { return }
+            navigationController.viewControllers = [advertisementsViewController]
         }
     }
     
@@ -45,7 +34,4 @@ class Router: RouterProtocol {
             navigationController.popToRootViewController(animated: true)
         }
     }
-    
-    
-    
 }

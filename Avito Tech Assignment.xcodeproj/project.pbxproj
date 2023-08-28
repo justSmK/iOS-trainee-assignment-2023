@@ -55,6 +55,10 @@
 		BB822B3A2A9CDD5300681C2B /* MockAdvertisementAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B392A9CDD5300681C2B /* MockAdvertisementAPIClient.swift */; };
 		BB822B3C2A9CDF8600681C2B /* MockAdvertisementsResponseJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B3B2A9CDF8600681C2B /* MockAdvertisementsResponseJSON.swift */; };
 		BB822B3F2A9CE35C00681C2B /* MockAdvertisementDetailJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B3E2A9CE35C00681C2B /* MockAdvertisementDetailJSON.swift */; };
+		BBDD69A92A9CFB2100910266 /* AssemblyBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDD69A82A9CFB2100910266 /* AssemblyBuilderProtocol.swift */; };
+		BBDD69AD2A9CFB6400910266 /* ServiceFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDD69AC2A9CFB6400910266 /* ServiceFactoryProtocol.swift */; };
+		BBDD69AF2A9CFB7B00910266 /* DefaultServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDD69AE2A9CFB7B00910266 /* DefaultServiceFactory.swift */; };
+		BBDD69B42A9CFC2200910266 /* RouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDD69B32A9CFC2200910266 /* RouterProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +125,10 @@
 		BB822B3B2A9CDF8600681C2B /* MockAdvertisementsResponseJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAdvertisementsResponseJSON.swift; sourceTree = "<group>"; };
 		BB822B3E2A9CE35C00681C2B /* MockAdvertisementDetailJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAdvertisementDetailJSON.swift; sourceTree = "<group>"; };
 		BBB9E0C52A9BCD01005B5420 /* Avito Tech Assignment.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Avito Tech Assignment.xctestplan"; sourceTree = "<group>"; };
+		BBDD69A82A9CFB2100910266 /* AssemblyBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyBuilderProtocol.swift; sourceTree = "<group>"; };
+		BBDD69AC2A9CFB6400910266 /* ServiceFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFactoryProtocol.swift; sourceTree = "<group>"; };
+		BBDD69AE2A9CFB7B00910266 /* DefaultServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultServiceFactory.swift; sourceTree = "<group>"; };
+		BBDD69B32A9CFC2200910266 /* RouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,12 +199,13 @@
 		BB1033FD2A97791A0077F568 /* Avito Tech Assignment */ = {
 			isa = PBXGroup;
 			children = (
-				BB542B092A9A160400B14DEC /* Extensions */,
 				BB3898D32A9779F5009555FC /* Resources */,
 				BB3898D22A9779D0009555FC /* Application */,
+				BBDD69A52A9CFAF700910266 /* Core */,
 				BB3898D42A977A19009555FC /* Presentation Layer */,
 				BB3898D52A977DE6009555FC /* Service Layer */,
 				BB3898DB2A977EE1009555FC /* Models */,
+				BB542B092A9A160400B14DEC /* Extensions */,
 			);
 			path = "Avito Tech Assignment";
 			sourceTree = "<group>";
@@ -214,8 +223,6 @@
 			children = (
 				BB1033FE2A97791A0077F568 /* AppDelegate.swift */,
 				BB1034002A97791A0077F568 /* SceneDelegate.swift */,
-				BB3898E62A97BA7E009555FC /* Router.swift */,
-				BB3898E82A97BAAB009555FC /* AssemblyBuilder.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -535,6 +542,67 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		BBDD69A52A9CFAF700910266 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				BBDD69A62A9CFB0900910266 /* Assembly Builder */,
+				BBDD69AA2A9CFB4600910266 /* Service Factory */,
+				BBDD69B02A9CFC0B00910266 /* Router */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		BBDD69A62A9CFB0900910266 /* Assembly Builder */ = {
+			isa = PBXGroup;
+			children = (
+				BBDD69A72A9CFB1600910266 /* Contracts */,
+				BB3898E82A97BAAB009555FC /* AssemblyBuilder.swift */,
+			);
+			path = "Assembly Builder";
+			sourceTree = "<group>";
+		};
+		BBDD69A72A9CFB1600910266 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				BBDD69A82A9CFB2100910266 /* AssemblyBuilderProtocol.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		BBDD69AA2A9CFB4600910266 /* Service Factory */ = {
+			isa = PBXGroup;
+			children = (
+				BBDD69AB2A9CFB5700910266 /* Contracts */,
+				BBDD69AE2A9CFB7B00910266 /* DefaultServiceFactory.swift */,
+			);
+			path = "Service Factory";
+			sourceTree = "<group>";
+		};
+		BBDD69AB2A9CFB5700910266 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				BBDD69AC2A9CFB6400910266 /* ServiceFactoryProtocol.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		BBDD69B02A9CFC0B00910266 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				BBDD69B12A9CFC1300910266 /* Contracts */,
+				BB3898E62A97BA7E009555FC /* Router.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		BBDD69B12A9CFC1300910266 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				BBDD69B32A9CFC2200910266 /* RouterProtocol.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -663,11 +731,13 @@
 				BB822B272A9CAF2500681C2B /*  ImageService.swift in Sources */,
 				BB542B0D2A9A354200B14DEC /* AdvertisementView.swift in Sources */,
 				BB0EFFE22A9A94E0009BA8B9 /* EndpointImage.swift in Sources */,
+				BBDD69B42A9CFC2200910266 /* RouterProtocol.swift in Sources */,
 				BB0EFFDA2A9A79D0009BA8B9 /* HTTPURLResponse + Extensions.swift in Sources */,
 				BB822B202A9CABE300681C2B /* AdvertisementServiceProtocol.swift in Sources */,
 				BB3898E72A97BA7E009555FC /* Router.swift in Sources */,
 				BB0EFFD82A9A6CE4009BA8B9 /* AdvertisementViewDelegate.swift in Sources */,
 				BB822B132A9CA8A000681C2B /* AdvertisementAPIClientProtocol.swift in Sources */,
+				BBDD69AF2A9CFB7B00910266 /* DefaultServiceFactory.swift in Sources */,
 				BB542B042A9A139200B14DEC /* AppFonts.swift in Sources */,
 				BB144E492A98F1E60064224D /* ImageServiceProtocol.swift in Sources */,
 				BB3898E32A9783C8009555FC /* NetworkService.swift in Sources */,
@@ -678,6 +748,7 @@
 				BB144E462A98F0D30064224D /* ImageService.swift in Sources */,
 				BB822B1B2A9CAB8B00681C2B /* AdvertisementService.swift in Sources */,
 				BB822B172A9CA8F400681C2B /* ImageAPIClient.swift in Sources */,
+				BBDD69AD2A9CFB6400910266 /* ServiceFactoryProtocol.swift in Sources */,
 				BB3898EF2A97C1F7009555FC /* NetworkServiceProtocol.swift in Sources */,
 				BB542B062A9A141300B14DEC /* AppColors.swift in Sources */,
 				BB3898DF2A978077009555FC /* HTTP.swift in Sources */,
@@ -689,6 +760,7 @@
 				BB822B192A9CA90900681C2B /* ImageAPIClientProtocol.swift in Sources */,
 				BB0EFFE02A9A90E2009BA8B9 /* ApiError.swift in Sources */,
 				BB3898EC2A97BFEF009555FC /* AdvertisementsCollectionView.swift in Sources */,
+				BBDD69A92A9CFB2100910266 /* AssemblyBuilderProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

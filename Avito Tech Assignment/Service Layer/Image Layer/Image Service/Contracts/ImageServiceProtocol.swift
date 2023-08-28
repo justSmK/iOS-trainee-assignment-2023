@@ -7,7 +7,7 @@
 
 import UIKit.UIImage
 
-protocol ImageServiceProtocol {
+protocol ImageServiceProtocol: AnyObject {
     func fetchImage(itemId: String, completion: @escaping (Result<UIImage, APIError>) -> Void)
     func fetchImage(from url: URL, completion: @escaping (Result<UIImage, APIError>) -> Void)
 
