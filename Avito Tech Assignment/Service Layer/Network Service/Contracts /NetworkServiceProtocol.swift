@@ -5,9 +5,8 @@
 //  Created by Sergei Semko on 8/24/23.
 //
 
-//import Foundation
+import Foundation
 
 protocol NetworkServiceProtocol {
-    func fetchAdvertisements(completion: @escaping (Result<AdvertisementsResponse, APIError>) -> Void)
-    func fetchAdvertisementDetail(itemId: String, completion: @escaping (Result<AdvertisementDetail, APIError>) -> Void)
+    func performRequest(url: URL, httpMethod: HTTP.Method, completion: @escaping (Result<Data, APIError>) -> Void)
 }

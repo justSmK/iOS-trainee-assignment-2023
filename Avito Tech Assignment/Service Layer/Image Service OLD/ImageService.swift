@@ -7,7 +7,7 @@
 
 import UIKit.UIImage
 
-final class ImageService: ImageServiceProtocol {
+final class ImageServiceOld: ImageServiceProtocol {
     private var cache = NSCache<NSURL, UIImage>()
     
     private var session: URLSession

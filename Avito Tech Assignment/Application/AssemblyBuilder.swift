@@ -20,11 +20,16 @@ final class AssemblyBuilder: AssemblyBuilderProtocol {
         
         let networkService = NetworkService(session: urlSession)
         
-        let imageService = ImageService()
+        let imageClient = ImageAPIClient(networkService: networkService)
+        let imageService = ImageService(imageClient: imageClient)
+        
+        let advertisementClient = AdvertisementAPIClient(networkService: networkService)
+        let advertisementService = AdvertisementService(advertisementClient: advertisementClient)
         
         let view = AdvertisementView()
         
-        let viewController = AdvertisementsViewController(networkService: networkService, imageService: imageService, view: view)
+        let viewController = AdvertisementsViewController(advertisementService: advertisementService, imageService: imageService, view: view)
+//        let viewController = AdvertisementsViewController(networkService: networkService, imageService: imageService, view: view)
         
         return viewController
     }

@@ -10,7 +10,7 @@
 		BB0EFFD82A9A6CE4009BA8B9 /* AdvertisementViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EFFD72A9A6CE4009BA8B9 /* AdvertisementViewDelegate.swift */; };
 		BB0EFFDA2A9A79D0009BA8B9 /* HTTPURLResponse + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EFFD92A9A79D0009BA8B9 /* HTTPURLResponse + Extensions.swift */; };
 		BB0EFFDD2A9A8FDC009BA8B9 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EFFDC2A9A8FDC009BA8B9 /* ResponseModel.swift */; };
-		BB0EFFE02A9A90E2009BA8B9 /* APIErrorAdvertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EFFDF2A9A90E2009BA8B9 /* APIErrorAdvertisement.swift */; };
+		BB0EFFE02A9A90E2009BA8B9 /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EFFDF2A9A90E2009BA8B9 /* ApiError.swift */; };
 		BB0EFFE22A9A94E0009BA8B9 /* EndpointImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EFFE12A9A94E0009BA8B9 /* EndpointImage.swift */; };
 		BB0EFFEE2A9AA6D6009BA8B9 /* Avito_Tech_Assignment_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EFFED2A9AA6D6009BA8B9 /* Avito_Tech_Assignment_Tests.swift */; };
 		BB0EFFF72A9AA710009BA8B9 /* NetworkServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0EFFF62A9AA710009BA8B9 /* NetworkServiceTest.swift */; };
@@ -40,6 +40,13 @@
 		BB542B112A9A36F900B14DEC /* CollectionAdvertisementProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB542B102A9A36F900B14DEC /* CollectionAdvertisementProtocol.swift */; };
 		BB542B162A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB542B152A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift */; };
 		BB748C922A99E232005CB3B1 /* AdvertisementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB748C912A99E232005CB3B1 /* AdvertisementCollectionViewCell.swift */; };
+		BB822B102A9CA70200681C2B /* AdvertisementAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B0F2A9CA70200681C2B /* AdvertisementAPIClient.swift */; };
+		BB822B132A9CA8A000681C2B /* AdvertisementAPIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B122A9CA8A000681C2B /* AdvertisementAPIClientProtocol.swift */; };
+		BB822B172A9CA8F400681C2B /* ImageAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B162A9CA8F400681C2B /* ImageAPIClient.swift */; };
+		BB822B192A9CA90900681C2B /* ImageAPIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B182A9CA90900681C2B /* ImageAPIClientProtocol.swift */; };
+		BB822B1B2A9CAB8B00681C2B /* AdvertisementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B1A2A9CAB8B00681C2B /* AdvertisementService.swift */; };
+		BB822B202A9CABE300681C2B /* AdvertisementServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B1F2A9CABE300681C2B /* AdvertisementServiceProtocol.swift */; };
+		BB822B272A9CAF2500681C2B /*  ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB822B262A9CAF2500681C2B /*  ImageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +63,7 @@
 		BB0EFFD72A9A6CE4009BA8B9 /* AdvertisementViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementViewDelegate.swift; sourceTree = "<group>"; };
 		BB0EFFD92A9A79D0009BA8B9 /* HTTPURLResponse + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse + Extensions.swift"; sourceTree = "<group>"; };
 		BB0EFFDC2A9A8FDC009BA8B9 /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
-		BB0EFFDF2A9A90E2009BA8B9 /* APIErrorAdvertisement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorAdvertisement.swift; sourceTree = "<group>"; };
+		BB0EFFDF2A9A90E2009BA8B9 /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		BB0EFFE12A9A94E0009BA8B9 /* EndpointImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointImage.swift; sourceTree = "<group>"; };
 		BB0EFFE62A9AA3FA009BA8B9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		BB0EFFEB2A9AA6D6009BA8B9 /* Avito Tech Assignment Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Avito Tech Assignment Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +97,13 @@
 		BB542B102A9A36F900B14DEC /* CollectionAdvertisementProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionAdvertisementProtocol.swift; sourceTree = "<group>"; };
 		BB542B152A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewProtocol.swift; sourceTree = "<group>"; };
 		BB748C912A99E232005CB3B1 /* AdvertisementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewCell.swift; sourceTree = "<group>"; };
+		BB822B0F2A9CA70200681C2B /* AdvertisementAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementAPIClient.swift; sourceTree = "<group>"; };
+		BB822B122A9CA8A000681C2B /* AdvertisementAPIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementAPIClientProtocol.swift; sourceTree = "<group>"; };
+		BB822B162A9CA8F400681C2B /* ImageAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIClient.swift; sourceTree = "<group>"; };
+		BB822B182A9CA90900681C2B /* ImageAPIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIClientProtocol.swift; sourceTree = "<group>"; };
+		BB822B1A2A9CAB8B00681C2B /* AdvertisementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementService.swift; sourceTree = "<group>"; };
+		BB822B1F2A9CABE300681C2B /* AdvertisementServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementServiceProtocol.swift; sourceTree = "<group>"; };
+		BB822B262A9CAF2500681C2B /*  ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " ImageService.swift"; sourceTree = "<group>"; };
 		BBB9E0C52A9BCD01005B5420 /* Avito Tech Assignment.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Avito Tech Assignment.xctestplan"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,23 +125,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BB0EFFDB2A9A7D11009BA8B9 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				BB3898DE2A978077009555FC /* HTTP.swift */,
-				BB0EFFDF2A9A90E2009BA8B9 /* APIErrorAdvertisement.swift */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
-		BB0EFFDE2A9A8FEF009BA8B9 /* Response Models */ = {
-			isa = PBXGroup;
-			children = (
-				BB0EFFDC2A9A8FDC009BA8B9 /* ResponseModel.swift */,
-			);
-			path = "Response Models";
-			sourceTree = "<group>";
-		};
 		BB0EFFEC2A9AA6D6009BA8B9 /* Avito Tech Assignment Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -141,27 +138,27 @@
 		BB0EFFF42A9AA6DF009BA8B9 /* Service Layer Tests */ = {
 			isa = PBXGroup;
 			children = (
-				BB0EFFFB2A9AADFD009BA8B9 /* Mocks */,
-				BB0EFFF82A9AA942009BA8B9 /* Image Service Tests */,
-				BB0EFFF52A9AA6E7009BA8B9 /* Network Service Tests */,
+				BB0EFFF82A9AA942009BA8B9 /* old Image Service Tests */,
+				BB0EFFF52A9AA6E7009BA8B9 /* old Network Service Tests */,
 			);
 			path = "Service Layer Tests";
 			sourceTree = "<group>";
 		};
-		BB0EFFF52A9AA6E7009BA8B9 /* Network Service Tests */ = {
+		BB0EFFF52A9AA6E7009BA8B9 /* old Network Service Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BB0EFFFB2A9AADFD009BA8B9 /* Mocks */,
 				BB0EFFF62A9AA710009BA8B9 /* NetworkServiceTest.swift */,
 			);
-			path = "Network Service Tests";
+			path = "old Network Service Tests";
 			sourceTree = "<group>";
 		};
-		BB0EFFF82A9AA942009BA8B9 /* Image Service Tests */ = {
+		BB0EFFF82A9AA942009BA8B9 /* old Image Service Tests */ = {
 			isa = PBXGroup;
 			children = (
 				BB0EFFF92A9AA95A009BA8B9 /* ImageServiceTest.swift */,
 			);
-			path = "Image Service Tests";
+			path = "old Image Service Tests";
 			sourceTree = "<group>";
 		};
 		BB0EFFFB2A9AADFD009BA8B9 /* Mocks */ = {
@@ -203,22 +200,12 @@
 			path = "Avito Tech Assignment";
 			sourceTree = "<group>";
 		};
-		BB144E442A98F0C80064224D /* Image Service */ = {
+		BB144E442A98F0C80064224D /* Image Service OLD */ = {
 			isa = PBXGroup;
 			children = (
-				BB144E472A98F1D80064224D /* Contracts */,
 				BB144E452A98F0D30064224D /* ImageService.swift */,
-				BB0EFFE12A9A94E0009BA8B9 /* EndpointImage.swift */,
 			);
-			path = "Image Service";
-			sourceTree = "<group>";
-		};
-		BB144E472A98F1D80064224D /* Contracts */ = {
-			isa = PBXGroup;
-			children = (
-				BB144E482A98F1E60064224D /* ImageServiceProtocol.swift */,
-			);
-			path = Contracts;
+			path = "Image Service OLD";
 			sourceTree = "<group>";
 		};
 		BB3898D22A9779D0009555FC /* Application */ = {
@@ -255,9 +242,10 @@
 		BB3898D52A977DE6009555FC /* Service Layer */ = {
 			isa = PBXGroup;
 			children = (
-				BB0EFFDB2A9A7D11009BA8B9 /* Shared */,
-				BB144E442A98F0C80064224D /* Image Service */,
+				BB822B212A9CAD4E00681C2B /* Image Layer */,
+				BB822B0D2A9CA6E600681C2B /* Advertisement Layer */,
 				BB3898D82A977E78009555FC /* Network Service */,
+				BB144E442A98F0C80064224D /* Image Service OLD */,
 			);
 			path = "Service Layer";
 			sourceTree = "<group>";
@@ -265,10 +253,10 @@
 		BB3898D82A977E78009555FC /* Network Service */ = {
 			isa = PBXGroup;
 			children = (
-				BB0EFFDE2A9A8FEF009BA8B9 /* Response Models */,
+				BB3898DE2A978077009555FC /* HTTP.swift */,
+				BB0EFFDF2A9A90E2009BA8B9 /* ApiError.swift */,
 				BB3898ED2A97C09E009555FC /* Contracts  */,
 				BB3898E22A9783C8009555FC /* NetworkService.swift */,
-				BB3898E02A97809D009555FC /* EndpointAdvertisement.swift */,
 			);
 			path = "Network Service";
 			sourceTree = "<group>";
@@ -368,6 +356,95 @@
 				BB748C912A99E232005CB3B1 /* AdvertisementCollectionViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		BB822B0D2A9CA6E600681C2B /* Advertisement Layer */ = {
+			isa = PBXGroup;
+			children = (
+				BB0EFFDC2A9A8FDC009BA8B9 /* ResponseModel.swift */,
+				BB3898E02A97809D009555FC /* EndpointAdvertisement.swift */,
+				BB822B1C2A9CABB000681C2B /* Ad API Client */,
+				BB822B1D2A9CABBD00681C2B /* Ad Service */,
+			);
+			path = "Advertisement Layer";
+			sourceTree = "<group>";
+		};
+		BB822B0E2A9CA6F600681C2B /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				BB822B122A9CA8A000681C2B /* AdvertisementAPIClientProtocol.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		BB822B1C2A9CABB000681C2B /* Ad API Client */ = {
+			isa = PBXGroup;
+			children = (
+				BB822B0E2A9CA6F600681C2B /* Contracts */,
+				BB822B0F2A9CA70200681C2B /* AdvertisementAPIClient.swift */,
+			);
+			path = "Ad API Client";
+			sourceTree = "<group>";
+		};
+		BB822B1D2A9CABBD00681C2B /* Ad Service */ = {
+			isa = PBXGroup;
+			children = (
+				BB822B1E2A9CABDB00681C2B /* Contracts */,
+				BB822B1A2A9CAB8B00681C2B /* AdvertisementService.swift */,
+			);
+			path = "Ad Service";
+			sourceTree = "<group>";
+		};
+		BB822B1E2A9CABDB00681C2B /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				BB822B1F2A9CABE300681C2B /* AdvertisementServiceProtocol.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		BB822B212A9CAD4E00681C2B /* Image Layer */ = {
+			isa = PBXGroup;
+			children = (
+				BB0EFFE12A9A94E0009BA8B9 /* EndpointImage.swift */,
+				BB822B232A9CAD5B00681C2B /* Image API Client */,
+				BB822B222A9CAD5700681C2B /* Image Service */,
+			);
+			path = "Image Layer";
+			sourceTree = "<group>";
+		};
+		BB822B222A9CAD5700681C2B /* Image Service */ = {
+			isa = PBXGroup;
+			children = (
+				BB822B252A9CAD6D00681C2B /* Contracts */,
+				BB822B262A9CAF2500681C2B /*  ImageService.swift */,
+			);
+			path = "Image Service";
+			sourceTree = "<group>";
+		};
+		BB822B232A9CAD5B00681C2B /* Image API Client */ = {
+			isa = PBXGroup;
+			children = (
+				BB822B242A9CAD6600681C2B /* Contracts */,
+				BB822B162A9CA8F400681C2B /* ImageAPIClient.swift */,
+			);
+			path = "Image API Client";
+			sourceTree = "<group>";
+		};
+		BB822B242A9CAD6600681C2B /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				BB822B182A9CA90900681C2B /* ImageAPIClientProtocol.swift */,
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
+		BB822B252A9CAD6D00681C2B /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				BB144E482A98F1E60064224D /* ImageServiceProtocol.swift */,
+			);
+			path = Contracts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -485,12 +562,16 @@
 			files = (
 				BB748C922A99E232005CB3B1 /* AdvertisementCollectionViewCell.swift in Sources */,
 				BB3898E12A97809D009555FC /* EndpointAdvertisement.swift in Sources */,
+				BB822B102A9CA70200681C2B /* AdvertisementAPIClient.swift in Sources */,
 				BB1034032A97791A0077F568 /* AdvertisementsViewController.swift in Sources */,
+				BB822B272A9CAF2500681C2B /*  ImageService.swift in Sources */,
 				BB542B0D2A9A354200B14DEC /* AdvertisementView.swift in Sources */,
 				BB0EFFE22A9A94E0009BA8B9 /* EndpointImage.swift in Sources */,
 				BB0EFFDA2A9A79D0009BA8B9 /* HTTPURLResponse + Extensions.swift in Sources */,
+				BB822B202A9CABE300681C2B /* AdvertisementServiceProtocol.swift in Sources */,
 				BB3898E72A97BA7E009555FC /* Router.swift in Sources */,
 				BB0EFFD82A9A6CE4009BA8B9 /* AdvertisementViewDelegate.swift in Sources */,
+				BB822B132A9CA8A000681C2B /* AdvertisementAPIClientProtocol.swift in Sources */,
 				BB542B042A9A139200B14DEC /* AppFonts.swift in Sources */,
 				BB144E492A98F1E60064224D /* ImageServiceProtocol.swift in Sources */,
 				BB3898E32A9783C8009555FC /* NetworkService.swift in Sources */,
@@ -499,6 +580,8 @@
 				BB3898DD2A977F00009555FC /* Advertisement.swift in Sources */,
 				BB3898E52A97B63D009555FC /* AdvertisementDetail.swift in Sources */,
 				BB144E462A98F0D30064224D /* ImageService.swift in Sources */,
+				BB822B1B2A9CAB8B00681C2B /* AdvertisementService.swift in Sources */,
+				BB822B172A9CA8F400681C2B /* ImageAPIClient.swift in Sources */,
 				BB3898EF2A97C1F7009555FC /* NetworkServiceProtocol.swift in Sources */,
 				BB542B062A9A141300B14DEC /* AppColors.swift in Sources */,
 				BB3898DF2A978077009555FC /* HTTP.swift in Sources */,
@@ -507,7 +590,8 @@
 				BB542B0B2A9A161500B14DEC /* UIView + Extensions.swift in Sources */,
 				BB542B162A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift in Sources */,
 				BB0EFFDD2A9A8FDC009BA8B9 /* ResponseModel.swift in Sources */,
-				BB0EFFE02A9A90E2009BA8B9 /* APIErrorAdvertisement.swift in Sources */,
+				BB822B192A9CA90900681C2B /* ImageAPIClientProtocol.swift in Sources */,
+				BB0EFFE02A9A90E2009BA8B9 /* ApiError.swift in Sources */,
 				BB3898EC2A97BFEF009555FC /* AdvertisementsCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -622,7 +706,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -677,7 +761,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

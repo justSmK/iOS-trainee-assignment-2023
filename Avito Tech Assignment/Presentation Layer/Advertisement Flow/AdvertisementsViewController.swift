@@ -9,7 +9,9 @@ import UIKit
 
 class AdvertisementsViewController: UIViewController {
     
-    private let networkService: NetworkServiceProtocol
+//    private let networkService: NetworkServiceProtocol
+    
+    private let advertisementService: AdvertisementServiceProtocol
     
     private let imageService: ImageServiceProtocol
     
@@ -17,8 +19,8 @@ class AdvertisementsViewController: UIViewController {
     
     private let advertisementView: AdvertisementView
     
-    init(networkService: NetworkServiceProtocol, imageService: ImageServiceProtocol, view: AdvertisementView) {
-        self.networkService = networkService
+    init(advertisementService: AdvertisementServiceProtocol, imageService: ImageServiceProtocol, view: AdvertisementView) {
+        self.advertisementService = advertisementService
         self.imageService = imageService
         self.advertisementView = view
         super.init(nibName: nil, bundle: nil)
@@ -41,7 +43,7 @@ class AdvertisementsViewController: UIViewController {
     }
     
     private func loadData() {
-        networkService.fetchAdvertisements { [weak self] result in
+        advertisementService.fetchAdvertisements { [weak self] result in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
@@ -56,10 +58,27 @@ class AdvertisementsViewController: UIViewController {
                 }
             }
         }
+        
+//        networkService.fetchAdvertisements { [weak self] result in
+//            switch result {
+//            case .success(let response):
+//                DispatchQueue.main.async {
+//                    self?.advertisementView.currentState = .content
+//                    self?.advertisements = response.advertisements
+//                    self?.advertisementView.reloadData()
+//                }
+//            case .failure(let error):
+//                print("Error \(error)")
+//                DispatchQueue.main.async {
+//                    self?.advertisementView.currentState = .error("Error: \(error)")
+//                }
+//            }
+//        }
     }
     
     private func loadImage(for advertisement: Advertisement, completion: @escaping (UIImage?) -> Void) {
         let url = advertisement.imageURL
+        
         imageService.fetchImage(from: url) { result in
             switch result {
             case .success(let image):
@@ -86,19 +105,19 @@ class AdvertisementsViewController: UIViewController {
 //        }
     }
     
-    private func loadDetailData(for advertisement: Advertisement) {
-        let id = advertisement.id
-        networkService.fetchAdvertisementDetail(itemId: id) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let detail):
-                    print(detail)
-                case .failure(let error):
-                    print("Error \(error)")
-                }
-            }
-        }
-    }
+//    private func loadDetailData(for advertisement: Advertisement) {
+//        let id = advertisement.id
+//        networkService.fetchAdvertisementDetail(itemId: id) { result in
+//            DispatchQueue.main.async {
+//                switch result {
+//                case .success(let detail):
+//                    print(detail)
+//                case .failure(let error):
+//                    print("Error \(error)")
+//                }
+//            }
+//        }
+//    }
     
     func formatDate(_ date: Date) -> String {
         let calendar = Calendar.current
@@ -147,7 +166,7 @@ extension AdvertisementsViewController: UICollectionViewDataSourcePrefetching {
         for indexPath in indexPaths {
             let advertisement = advertisements[indexPath.item]
 //            imageService.prefetchImage(from: advertisement.imageURL)
-            imageService.prefetchImage(from: advertisement.imageURL)
+//            imageService.prefetchImage(from: advertisement.imageURL)
             
         }
     }
@@ -168,7 +187,7 @@ extension AdvertisementsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let advertisement = advertisements[indexPath.item]
-        loadDetailData(for: advertisement)
+//        loadDetailData(for: advertisement)
     }
 }
 

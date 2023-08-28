@@ -24,7 +24,7 @@ final class ImageServiceTest: XCTestCase {
         let itemId = "1"
         
         let expectation = XCTestExpectation(description: "fetchImage returns data")
-        
+
         imageService.fetchImage(itemId: itemId) { result in
             switch result {
             case .success(let image):

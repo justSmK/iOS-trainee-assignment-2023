@@ -11,5 +11,5 @@ protocol ImageServiceProtocol {
     func fetchImage(itemId: String, completion: @escaping (Result<UIImage, APIError>) -> Void)
     func fetchImage(from url: URL, completion: @escaping (Result<UIImage, APIError>) -> Void)
 
-    func prefetchImage(from url: URL)
+//    func prefetchImage(from url: URL)
 }
