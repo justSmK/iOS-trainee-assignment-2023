@@ -7,11 +7,12 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    // MARK: - Properties
     var window: UIWindow?
 
-
+    // MARK: - UIWindowSceneDelegate
     func scene(
         _ scene: UIScene,
         willConnectTo session: UISceneSession,
@@ -19,7 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = ViewController()
+        
+        let assemblyBuilder = AssemblyBuilder()
+        let (navigationController, router) = assemblyBuilder.createInitialSetup()
+        router.initialViewController()
+        
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 }
