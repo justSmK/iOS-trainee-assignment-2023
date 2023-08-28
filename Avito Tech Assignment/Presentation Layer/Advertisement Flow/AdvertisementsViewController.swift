@@ -9,8 +9,6 @@ import UIKit
 
 class AdvertisementsViewController: UIViewController {
     
-//    private let networkService: NetworkServiceProtocol
-    
     private let advertisementService: AdvertisementServiceProtocol
     
     private let imageService: ImageServiceProtocol
@@ -58,28 +56,12 @@ class AdvertisementsViewController: UIViewController {
                 }
             }
         }
-        
-//        networkService.fetchAdvertisements { [weak self] result in
-//            switch result {
-//            case .success(let response):
-//                DispatchQueue.main.async {
-//                    self?.advertisementView.currentState = .content
-//                    self?.advertisements = response.advertisements
-//                    self?.advertisementView.reloadData()
-//                }
-//            case .failure(let error):
-//                print("Error \(error)")
-//                DispatchQueue.main.async {
-//                    self?.advertisementView.currentState = .error("Error: \(error)")
-//                }
-//            }
-//        }
+
     }
     
     private func loadImage(for advertisement: Advertisement, completion: @escaping (UIImage?) -> Void) {
-        let url = advertisement.imageURL
-        
-        imageService.fetchImage(from: url) { result in
+        let id = advertisement.id
+        imageService.fetchImage(itemId: id) { result in
             switch result {
             case .success(let image):
                 DispatchQueue.main.async {
@@ -90,9 +72,12 @@ class AdvertisementsViewController: UIViewController {
                 completion(nil)
             }
         }
-        
-//        let id = advertisement.id
-//        imageService.fetchImage(itemId: id) { result in
+    }
+    
+//    private func loadImage(for advertisement: Advertisement, completion: @escaping (UIImage?) -> Void) {
+//        let url = advertisement.imageURL
+//
+//        imageService.fetchImage(from: url) { result in
 //            switch result {
 //            case .success(let image):
 //                DispatchQueue.main.async {
@@ -103,21 +88,21 @@ class AdvertisementsViewController: UIViewController {
 //                completion(nil)
 //            }
 //        }
-    }
-    
-//    private func loadDetailData(for advertisement: Advertisement) {
-//        let id = advertisement.id
-//        networkService.fetchAdvertisementDetail(itemId: id) { result in
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let detail):
-//                    print(detail)
-//                case .failure(let error):
-//                    print("Error \(error)")
-//                }
-//            }
-//        }
 //    }
+    
+    private func loadDetailData(for advertisement: Advertisement) {
+        let id = advertisement.id
+        advertisementService.fetchAdvertisementDetail(itemId: id) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let detail):
+                    print(detail)
+                case .failure(let error):
+                    print("Error \(error)")
+                }
+            }
+        }
+    }
     
     func formatDate(_ date: Date) -> String {
         let calendar = Calendar.current
@@ -187,7 +172,7 @@ extension AdvertisementsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let advertisement = advertisements[indexPath.item]
-//        loadDetailData(for: advertisement)
+        loadDetailData(for: advertisement)
     }
 }
 
