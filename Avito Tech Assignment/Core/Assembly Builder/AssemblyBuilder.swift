@@ -8,9 +8,21 @@
 import UIKit
 
 final class AssemblyBuilder: AssemblyBuilderProtocol {
-    
+
     // MARK: - Private Properties
     private let serviceFactory: ServiceFactoryProtocol
+    
+    private lazy var networkService = serviceFactory.createNetworkService()
+    
+    private lazy var imageService = {
+        let imageClient = serviceFactory.createImageClient(networkService: networkService)
+        return serviceFactory.createImageService(imageClient: imageClient)
+    }()
+    
+    private lazy var advertisementService = {
+        let advertisementClient = serviceFactory.createAdvertisementClient(networkService: networkService)
+        return serviceFactory.createAdvertisementService(adClient: advertisementClient)
+    }()
     
     // MARK: - Dependencies
     init(serviceFactory: ServiceFactoryProtocol = DefaultServiceFactory()) {
@@ -25,30 +37,28 @@ final class AssemblyBuilder: AssemblyBuilderProtocol {
     }
     
     func createAdvertisementsViewController(router: RouterProtocol) -> UIViewController {
-        let networkService = serviceFactory.createNetworkService()
-        
-        let imageClient = serviceFactory
-            .createImageClient(networkService: networkService)
-        let imageService = serviceFactory
-            .createImageService(imageClient: imageClient)
-        
-        let advertisementClient = serviceFactory
-            .createAdvertisementClient(networkService: networkService)
-        let advertisementService = serviceFactory
-            .createAdvertisementService(adClient: advertisementClient)
-        
         let view = AdvertisementView()
         
         let viewController = AdvertisementsViewController(
             advertisementService: advertisementService,
             imageService: imageService,
+            router: router,
             view: view
         )
         
         return viewController
     }
     
-    func createDetailModule() -> UIViewController {
-        return UIViewController()
+    func createAdvertisementDetailViewController(advertisementId: String, router: RouterProtocol) -> UIViewController {
+        let view = AdvertisementDetailView()
+        
+        let viewController = AdvertisementDetailViewController(
+            advertisementId: advertisementId,
+            advertisementService: advertisementService,
+            imageService: imageService
+            , view: view
+        )
+        
+        return viewController
     }
 }

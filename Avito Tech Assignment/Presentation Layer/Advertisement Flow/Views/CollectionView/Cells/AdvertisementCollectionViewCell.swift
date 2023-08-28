@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdvertisementCollectionViewCell: UICollectionViewCell {
+final class AdvertisementCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String {
         return String(describing: AdvertisementCollectionViewCell.self)
@@ -45,28 +45,28 @@ class AdvertisementCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
-        label.font = AppFonts.title
+        label.font = AppFonts.Cell.title
         return label
     }()
     
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = AppFonts.price
+        label.font = AppFonts.Cell.price
         return label
     }()
     
     private let locationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = AppFonts.location
+        label.font = AppFonts.Cell.location
         return label
     }()
     
     private let createdDateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = AppFonts.createdDate
+        label.font = AppFonts.Cell.createdDate
         return label
     }()
     

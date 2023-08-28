@@ -63,4 +63,30 @@ final class ImageAPIClientTests: XCTestCase {
         
     }
 
+    func testImageAPIClientMemoryLearTeardown() {
+        let localMockNetworkService = MockNetworkService()
+        let localImageApiClient = ImageAPIClient(networkService: localMockNetworkService)
+        
+        let expectation = self.expectation(description: "Expecting Success")
+        
+        let testData = Data([0x01, 0x02])
+        localMockNetworkService.mockData = testData
+        
+        localImageApiClient.fetchImageData(from: Self.testURL) { result in
+            if case .success(let data) = result {
+                XCTAssertEqual(data, testData)
+                expectation.fulfill()
+            } else {
+                XCTFail("Expecting success but got failure")
+            }
+        }
+        
+        waitForExpectations(timeout: 1)
+        
+        addTeardownBlock { [weak localMockNetworkService, weak localImageApiClient] in
+            XCTAssertNil(localMockNetworkService, "potential memory leak on \(String(describing: localMockNetworkService))")
+            XCTAssertNil(localImageApiClient, "potential memory leak on \(String(describing: localImageApiClient))")
+        }
+    }
+    
 }

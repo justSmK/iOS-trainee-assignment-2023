@@ -25,8 +25,15 @@ final class Router: RouterProtocol {
         }
     }
     
-    func showDetail() {
-        
+    func showAdvertisementDetails(advertisementId: String) {
+        if let navigationController {
+            guard let advertisementDetailViewController = assemblyBuilder?
+                .createAdvertisementDetailViewController(
+                    advertisementId: advertisementId,
+                    router: self
+                ) else { return}
+            navigationController.pushViewController(advertisementDetailViewController, animated: true)
+        }
     }
     
     func popToRoot() {

@@ -7,7 +7,9 @@
 
 import UIKit
 
-class AdvertisementsViewController: UIViewController {
+final class AdvertisementsViewController: UIViewController {
+    
+    private let router: RouterProtocol
     
     private let advertisementService: AdvertisementServiceProtocol
     
@@ -17,13 +19,12 @@ class AdvertisementsViewController: UIViewController {
     
     private let advertisementView: AdvertisementView
     
-    init(advertisementService: AdvertisementServiceProtocol, imageService: ImageServiceProtocol, view: AdvertisementView) {
+    init(advertisementService: AdvertisementServiceProtocol, imageService: ImageServiceProtocol, router: RouterProtocol, view: AdvertisementView) {
         self.advertisementService = advertisementService
         self.imageService = imageService
+        self.router = router
         self.advertisementView = view
         super.init(nibName: nil, bundle: nil)
-        advertisementView.currentState = .loading
-        loadData()
     }
     
     required init?(coder: NSCoder) {
@@ -36,11 +37,12 @@ class AdvertisementsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         advertisementView.configure(dataSourceDelegate: self)
+        loadData()
     }
     
     private func loadData() {
+        advertisementView.currentState = .loading
         advertisementService.fetchAdvertisements { [weak self] result in
             switch result {
             case .success(let response):
@@ -90,32 +92,6 @@ class AdvertisementsViewController: UIViewController {
 //        }
 //    }
     
-    private func loadDetailData(for advertisement: Advertisement) {
-        let id = advertisement.id
-        advertisementService.fetchAdvertisementDetail(itemId: id) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let detail):
-                    print(detail)
-                case .failure(let error):
-                    print("Error \(error)")
-                }
-            }
-        }
-    }
-    
-    func formatDate(_ date: Date) -> String {
-        let calendar = Calendar.current
-        if calendar.isDateInToday(date) {
-            return "Сегодня"
-        } else if calendar.isDateInYesterday(date) {
-            return "Вчера"
-        } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd.MM.yyyy"  // Задайте нужный вам формат
-            return dateFormatter.string(from: date)
-        }
-    }
 }
 
 
@@ -166,13 +142,26 @@ extension AdvertisementsViewController: UICollectionViewDataSourcePrefetching {
 
 extension AdvertisementsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.frame.size.width - 10) / 2
+        let width = (collectionView.bounds.size.width - 50) / 2
         return CGSize(width: width, height: width + 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let advertisement = advertisements[indexPath.item]
-        loadDetailData(for: advertisement)
+        
+        router.showAdvertisementDetails(advertisementId: advertisement.id)
     }
 }
 

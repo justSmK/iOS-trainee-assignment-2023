@@ -10,5 +10,5 @@ import UIKit.UIViewController
 protocol AssemblyBuilderProtocol: AnyObject {
     func createInitialSetup() -> (UINavigationController, Router)
     func createAdvertisementsViewController(router: RouterProtocol) -> UIViewController
-    func createDetailModule() -> UIViewController
+    func createAdvertisementDetailViewController(advertisementId: String ,router: RouterProtocol) -> UIViewController
 }

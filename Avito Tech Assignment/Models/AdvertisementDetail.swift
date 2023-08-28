@@ -9,8 +9,9 @@ import Foundation
 
 struct AdvertisementDetail: Codable {
     let id, title, price, location: String
-    let imageURL: String
-    let createdDate, description, email, phoneNumber: String
+    let imageURL: URL
+    let createdDate: Date
+    let description, email, phoneNumber: String
     let address: String
     
     enum CodingKeys: String, CodingKey {
@@ -20,5 +21,14 @@ struct AdvertisementDetail: Codable {
         case description, email
         case phoneNumber = "phone_number"
         case address
+    }
+    
+    var formattedCreatedDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, d MMM yyyy"
+        let formatted = dateFormatter.string(from: createdDate)
+        // For Russian language
+        let capitalizedDate = formatted.prefix(1).uppercased() + formatted.dropFirst()
+        return capitalizedDate
     }
 }

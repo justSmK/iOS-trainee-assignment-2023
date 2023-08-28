@@ -1,19 +1,21 @@
 //
-//  AdvertisementView.swift
+//  AdvertisementDetailView.swift
 //  Avito Tech Assignment
 //
-//  Created by Sergei Semko on 8/26/23.
+//  Created by Sergei Semko on 8/28/23.
 //
 
 import UIKit
 
-final class AdvertisementView: UIView {
+final class AdvertisementDetailView: UIView {
     
     enum State {
         case loading
-        case content
+        case present
         case error(String)
     }
+    
+    private let adDetailsView = AdDetailsView()
     
     private let loadingView = UIActivityIndicatorView()
     private let errorView = UILabel()
@@ -24,10 +26,10 @@ final class AdvertisementView: UIView {
         }
     }
     
-    private let advertisementCollectionView = AdvertisementCollectionView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setupLayout()
         setupConstraints()
         
@@ -39,12 +41,13 @@ final class AdvertisementView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Internal Methods
-    
-    func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols) {
-        advertisementCollectionView.configure(dataSourceDelegate: dataSourceDelegate)
+    func configure(adDetailModel: AdvertisementDetail) {
+        adDetailsView.configure(advertisementDetailModel: adDetailModel)
     }
     
+    func configure(image: UIImage?) {
+        adDetailsView.configure(image: image)
+    }
     
     private func setupLoadingView() {
         loadingView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,15 +77,15 @@ final class AdvertisementView: UIView {
             
         case .loading:
             loadingView.isHidden = false
-            advertisementCollectionView.isHidden = true
+//            advertisementCollectionView.isHidden = true
             loadingView.startAnimating()
-        case .content:
+        case .present:
             loadingView.isHidden = true
-            advertisementCollectionView.isHidden = false
+//            advertisementCollectionView.isHidden = false
             loadingView.stopAnimating()
         case .error(let message):
             loadingView.isHidden = true
-            advertisementCollectionView.isHidden = true
+//            advertisementCollectionView.isHidden = true
             loadingView.stopAnimating()
             errorView.text = message
         }
@@ -91,24 +94,19 @@ final class AdvertisementView: UIView {
 
 // MARK: - Setup Layout, Constraints
 
-private extension AdvertisementView {
+private extension AdvertisementDetailView {
     func setupLayout() {
-        addSubview(advertisementCollectionView)
         self.backgroundColor = AppColors.background
+        addSubview(adDetailsView)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            advertisementCollectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            advertisementCollectionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-            advertisementCollectionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            advertisementCollectionView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            adDetailsView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            adDetailsView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            adDetailsView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            adDetailsView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 }
 
-extension AdvertisementView: CollectionAdvertisementProtocol {
-    func reloadData() {
-        advertisementCollectionView.reloadData()
-    }
-}

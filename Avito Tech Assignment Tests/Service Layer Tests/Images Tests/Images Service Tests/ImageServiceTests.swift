@@ -91,4 +91,28 @@ final class ImageServiceTests: XCTestCase {
         
         waitForExpectations(timeout: 1)
     }
+    
+    func testImageServiceMemoryLearTeardown() {
+        let localMockImageClient = MockImageAPIClient()
+        let localImageService = ImageService(imageClient: localMockImageClient)
+
+        let expectation = self.expectation(description: "Expecting Success")
+        
+        localMockImageClient.mockImageData = Self.mockImageData
+        
+        localImageService.fetchImage(itemId: "1") { result in
+            if case .success(_) = result {
+                expectation.fulfill()
+            } else {
+                XCTFail("Expecting success but got failure")
+            }
+        }
+        
+        waitForExpectations(timeout: 1)
+        
+        addTeardownBlock { [weak localMockImageClient, weak localImageService] in
+            XCTAssertNil(localMockImageClient, "potential memory leak on \(String(describing: localMockImageClient))")
+            XCTAssertNil(localImageService, "potential memory leak on \(String(describing: localImageService))")
+        }
+    }
 }
