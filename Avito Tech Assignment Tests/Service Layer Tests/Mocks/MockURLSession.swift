@@ -1,5 +1,5 @@
 //
-//  URLSessionMock.swift
+//  MockURLSession.swift
 //  Avito Tech Assignment Tests
 //
 //  Created by Sergei Semko on 8/27/23.
@@ -8,27 +8,20 @@
 import Foundation
 @testable import Avito_Tech_Assignment
 
-class URLSessionMock: URLSession {
-    var error: Error?
-    var response: URLResponse?
+final class MockURLSession: URLSession {
     var data: Data?
-    
-    init(error: Error?, response: URLResponse?, data: Data?) {
-        self.error = error
-        self.response = response
-        self.data = data
-        print("init")
-    }
+    var response: URLResponse?
+    var error: Error?
     
     override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-        return URLSessionDataTaskMock {
+        return MockURLSessionDataTask {
             completionHandler(self.data, self.response, self.error)
         }
     }
-
+    
 }
 
-class URLSessionDataTaskMock: URLSessionDataTask {
+final class MockURLSessionDataTask: URLSessionDataTask {
     private let closure: () -> Void
     
     init(closure: @escaping () -> Void) {
