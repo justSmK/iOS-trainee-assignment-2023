@@ -38,6 +38,7 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         label.font = AppFonts.Cell.title
+        label.textColor = AppColors.label
         return label
     }()
     
@@ -45,6 +46,7 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Cell.price
+        label.textColor = AppColors.label
         return label
     }()
     
@@ -52,6 +54,7 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Cell.location
+        label.textColor = AppColors.label
         return label
     }()
     
@@ -59,6 +62,7 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Cell.createdDate
+        label.textColor = AppColors.label
         return label
     }()
     

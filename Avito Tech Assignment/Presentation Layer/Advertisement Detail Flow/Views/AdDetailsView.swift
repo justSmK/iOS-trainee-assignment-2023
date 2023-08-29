@@ -42,6 +42,7 @@ final class AdDetailsView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Details.title
+        label.textColor = AppColors.label
         label.numberOfLines = 0
         return label
     }()
@@ -50,6 +51,7 @@ final class AdDetailsView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Details.price
+        label.textColor = AppColors.label
         return label
     }()
     
@@ -57,6 +59,7 @@ final class AdDetailsView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Details.descriptionStaticLabel
+        label.textColor = AppColors.label
         label.text = AppData.descriptionLabelText
         return label
     }()
@@ -67,6 +70,7 @@ final class AdDetailsView: UIView {
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.font = AppFonts.Details.description
+        textView.textColor = AppColors.label
         return textView
     }()
     
@@ -83,6 +87,7 @@ final class AdDetailsView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Details.location
+        label.textColor = AppColors.label
         return label
     }()
     
@@ -101,6 +106,7 @@ final class AdDetailsView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Details.createdDate
+        label.textColor = AppColors.label
         return label
     }()
     
@@ -119,6 +125,7 @@ final class AdDetailsView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Details.email
+        label.textColor = AppColors.label
         return label
     }()
     
@@ -137,6 +144,7 @@ final class AdDetailsView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = AppFonts.Details.phone
+        label.textColor = AppColors.label
         return label
     }()
     
