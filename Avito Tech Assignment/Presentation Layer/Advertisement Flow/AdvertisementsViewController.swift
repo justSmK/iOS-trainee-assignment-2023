@@ -20,6 +20,8 @@ final class AdvertisementsViewController: UIViewController {
     
     private let advertisementView: AdvertisementView
     
+    private var refreshControl: UIRefreshControl?
+    
     // MARK: - Initializers
     
     init(
@@ -47,7 +49,8 @@ final class AdvertisementsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        advertisementView.configure(dataSourceDelegate: self, tryAgainLoadData: fetchData)
+        setupRefreshControl()
+        advertisementView.configure(dataSourceDelegate: self, refreshControl: refreshControl, tryAgainLoadData: fetchData)
         fetchData()
     }
     
@@ -81,6 +84,17 @@ final class AdvertisementsViewController: UIViewController {
                 completion(nil)
             }
         }
+    }
+    
+    private func setupRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+    }
+    
+    @objc
+    private func handleRefreshControl() {
+        fetchData()
+        refreshControl?.endRefreshing()
     }
 }
 
@@ -124,9 +138,9 @@ extension AdvertisementsViewController: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let width = (collectionView.bounds.size.width - 50) / 2
+        let offset = AppConstants.space * 3 // left + middle min space + right
+        let width = (collectionView.bounds.size.width - offset) / 2
         let someSize = view.frame.height / 8
-        print(someSize)
         return CGSize(width: width, height: width + someSize)
     }
     

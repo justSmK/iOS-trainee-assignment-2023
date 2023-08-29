@@ -35,7 +35,7 @@ final class AdvertisementView: UIView {
         super.init(frame: frame)
         setupLayout()
         setupConstraints()
-        
+
         setupLoadingView()
     }
     
@@ -45,9 +45,10 @@ final class AdvertisementView: UIView {
     
     // MARK: - Internal Methods
     
-    func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols, tryAgainLoadData: (() -> Void)?) {
+    func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols, refreshControl: UIRefreshControl?, tryAgainLoadData: (() -> Void)?) {
         advertisementCollectionView.configure(dataSourceDelegate: dataSourceDelegate)
         self.tryAgainLoadData = tryAgainLoadData
+        self.advertisementCollectionView.refreshControl = refreshControl
     }
     
     // MARK: - Private Methods
