@@ -15,12 +15,12 @@ Avito Tech
 
 ## Установка 
 
-1. Клонируйте или скачайте репозиторий:
-- https
+1. Клонируйте или скачайте репозиторий (https или ssh):
+
    ```
    https://github.com/justSmK/iOS-trainee-assignment-2023.git
    ```
-- ssh
+
    ```
    git@github.com:avito-tech/iOS-trainee-assignment-2023.git
    ```
