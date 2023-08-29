@@ -46,6 +46,8 @@ final class AssemblyBuilder: AssemblyBuilderProtocol {
             view: view
         )
         
+        viewController.title = AppData.advertisementsVCTitle
+        
         return viewController
     }
     
@@ -55,9 +57,11 @@ final class AssemblyBuilder: AssemblyBuilderProtocol {
         let viewController = AdvertisementDetailViewController(
             advertisementId: advertisementId,
             advertisementService: advertisementService,
-            imageService: imageService
-            , view: view
+            imageService: imageService,
+            view: view
         )
+        
+        viewController.title = AppData.adDetailVCTitle
         
         return viewController
     }

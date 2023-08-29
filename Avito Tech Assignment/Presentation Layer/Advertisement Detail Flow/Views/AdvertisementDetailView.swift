@@ -15,25 +15,27 @@ final class AdvertisementDetailView: UIView {
         case error(String)
     }
     
-    private let adDetailsView = AdDetailsView()
-    
-    private let loadingView = UIActivityIndicatorView()
-    private let errorView = UILabel()
-    
     var currentState: State = .loading {
         didSet {
             updateState()
         }
     }
     
+    // MARK: - Private Properties
+    
+    private let loadingView: LoadingViewProtocol = LoadingView()
+    
+    private var tryAgainLoadData: (() -> Void)?
+    
+    private let adDetailsView = AdDetailsView()
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setupLayout()
         setupConstraints()
         
-        setupErrorView()
         setupLoadingView()
     }
     
@@ -41,54 +43,48 @@ final class AdvertisementDetailView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(adDetailModel: AdvertisementDetail) {
-        adDetailsView.configure(advertisementDetailModel: adDetailModel)
+    // MARK: - Internal Methods
+    
+    func configure(image: UIImage?, adDetailModel: AdvertisementDetail) {
+        adDetailsView.configure(image: image, adDetailModel: adDetailModel)
     }
     
-    func configure(image: UIImage?) {
-        adDetailsView.configure(image: image)
+    func configureErrorAction(tryAgainLoadData: (() -> Void)?) {
+        self.tryAgainLoadData = tryAgainLoadData
     }
     
-    private func setupLoadingView() {
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(loadingView)
-        NSLayoutConstraint.activate([
-            loadingView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            loadingView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-        ])
-    }
-    
-    private func setupErrorView() {
-        errorView.textColor = .red
-        errorView.numberOfLines = 0
-        errorView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(errorView)
-        NSLayoutConstraint.activate([
-            errorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            errorView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            errorView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            errorView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-        ])
-    }
+    // MARK: - Private Methods
     
     private func updateState() {
         
         switch currentState {
             
         case .loading:
-            loadingView.isHidden = false
-//            advertisementCollectionView.isHidden = true
+            adDetailsView.isHidden = true
             loadingView.startAnimating()
         case .present:
-            loadingView.isHidden = true
-//            advertisementCollectionView.isHidden = false
+            adDetailsView.isHidden = false
             loadingView.stopAnimating()
         case .error(let message):
-            loadingView.isHidden = true
-//            advertisementCollectionView.isHidden = true
+            adDetailsView.isHidden = true
             loadingView.stopAnimating()
-            errorView.text = message
+            showErrorAlert(message: message)
         }
+    }
+    
+    private func showErrorAlert(message: String) {
+        if let viewController = self.findViewController() {
+            let errorAlertController = ErrorViewAlertController(message: message, tryAgainHandler: self.tryAgainLoadData)
+            viewController.present(errorAlertController, animated: true)
+        }
+    }
+    
+    private func findViewController() -> UIViewController? {
+        var responder: UIResponder? = self
+        while !(responder is UIViewController) && responder != nil {
+            responder = responder?.next
+        }
+        return responder as? UIViewController
     }
 }
 
@@ -102,10 +98,18 @@ private extension AdvertisementDetailView {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            adDetailsView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            adDetailsView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            adDetailsView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            adDetailsView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            adDetailsView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
+            adDetailsView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            adDetailsView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            adDetailsView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
+        ])
+    }
+    
+    func setupLoadingView() {
+        addSubview(loadingView)
+        NSLayoutConstraint.activate([
+            loadingView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
 }

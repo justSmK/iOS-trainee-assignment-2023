@@ -15,31 +15,23 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
     
     var currentId: String?
     
+    // MARK: - Private Properties
+    
     private var advertisement: Advertisement? {
         didSet {
             guard let ad = advertisement else { return }
             titleLabel.text = ad.title
-            priceLabel.text = ad.price
+            priceLabel.text = ad.formattedPrice
             locationLabel.text = ad.location
             createdDateLabel.text = ad.formattedCreatedDate
         }
     }
     
-    lazy var activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .medium)
-        indicator.hidesWhenStopped = true
-        return indicator
-    }()
+    // MARK: UI
     
+    private let loadingView = LoadingView()
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 12
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
-    }()
+    private let imageView = AdImageView()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -70,49 +62,49 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLayout()
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         advertisement = nil
         imageView.image = nil
     }
     
+    // MARK: - Initializers
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupLayout()
+        setupConstraints()
+        setupLoadingView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Internal Methods
+    
     func configure(image: UIImage?, advertisementModel: Advertisement) {
         if let image {
             imageView.image = image
             advertisement = advertisementModel
-            activityIndicator.stopAnimating()
+            loadingView.stopAnimating()
         } else {
-            activityIndicator.startAnimating()
+            loadingView.startAnimating()
         }
     }
 }
 
+// MARK: - Setup Layout, Constraints
 
 private extension AdvertisementCollectionViewCell {
     func setupLayout() {
-        
         contentView.addSubviews(
-            activityIndicator,
             imageView,
             titleLabel,
             priceLabel,
             locationLabel,
             createdDateLabel
         )
-        
-        activityIndicator.center = contentView.center
-
-//        contentView.backgroundColor = .yellow
     }
     
     func setupConstraints() {
@@ -137,7 +129,15 @@ private extension AdvertisementCollectionViewCell {
             createdDateLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor),
             createdDateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             createdDateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            createdDateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+        ])
+    }
+    
+    func setupLoadingView() {
+        loadingView.startAnimating()
+        contentView.addSubview(loadingView)
+        NSLayoutConstraint.activate([
+            loadingView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
         ])
     }
 }

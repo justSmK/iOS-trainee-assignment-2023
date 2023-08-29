@@ -9,15 +9,17 @@ import UIKit
 
 final class AdvertisementDetailViewController: UIViewController {
     
+    // MARK: - Private Properties
+    
     private let advertisementService: AdvertisementServiceProtocol
     
     private let imageService: ImageServiceProtocol
     
-    private var advertisementDetail: AdvertisementDetail?
-    
     private let advertisementDetailView: AdvertisementDetailView
     
     private let adId: String
+    
+    // MARK: - Initializers
     
     init(advertisementId: String, advertisementService: AdvertisementServiceProtocol, imageService: ImageServiceProtocol, view: AdvertisementDetailView) {
         self.adId = advertisementId
@@ -31,50 +33,50 @@ final class AdvertisementDetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Life Cycle
+    
     override func loadView() {
         view = advertisementDetailView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadDetailData(for: adId)
+        fetchDetailData()
+        advertisementDetailView.configureErrorAction(tryAgainLoadData: fetchDetailData)
     }
     
+    // MARK: - Private Methods
 
-    private func loadDetailData(for advertisementId: String) {
-        advertisementService.fetchAdvertisementDetail(itemId: advertisementId) { [weak self] result in
-            switch result {
-                
-            case .success(let adDetail):
-                DispatchQueue.main.async {
-                    self?.advertisementDetail = adDetail
-                    self?.advertisementDetailView.configure(adDetailModel: adDetail)
-                    self?.advertisementDetailView.currentState = .present
+    private func fetchDetailData() {
+        advertisementDetailView.currentState = .loading
+        advertisementService.fetchAdvertisementDetail(itemId: adId) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let adDetail):
+                    self?.fetchImage(for: adDetail, completion: { image in
+                        self?.advertisementDetailView.configure(image: image, adDetailModel: adDetail)
+                        self?.advertisementDetailView.currentState = .present
+                    })
+                case .failure(let error):
+                    print("Error \(error)")
+                    self?.advertisementDetailView.currentState = .error("Error: \(error)")
                 }
-                self?.loadImage(for: adDetail, completion: { image in
-                    DispatchQueue.main.async {
-                        self?.advertisementDetailView.configure(image: image)
-                    }
-                })
-            case .failure(let error):
-                print(error)
             }
         }
     }
     
-    private func loadImage(for advertisementDetail: AdvertisementDetail, completion: @escaping (UIImage?) -> Void) {
+    private func fetchImage(for advertisementDetail: AdvertisementDetail, completion: @escaping (UIImage?) -> Void) {
         let url = advertisementDetail.imageURL
 
         imageService.fetchImage(from: url) { result in
-            switch result {
-            case .success(let image):
-//                DispatchQueue.main.async {
-//                    completion(image)
-//                }
-                completion(image) // !!!!!!
-            case .failure(let error):
-                print("Error \(error)")
-                completion(nil)
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let image):
+                    completion(image)
+                case .failure(let error):
+                    print("Error \(error)")
+                    completion(nil)
+                }
             }
         }
     }

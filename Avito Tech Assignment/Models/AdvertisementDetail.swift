@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AdvertisementDetail: Codable {
+struct AdvertisementDetail: Codable, Formattable {
     let id, title, price, location: String
     let imageURL: URL
     let createdDate: Date
@@ -21,14 +21,5 @@ struct AdvertisementDetail: Codable {
         case description, email
         case phoneNumber = "phone_number"
         case address
-    }
-    
-    var formattedCreatedDate: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, d MMM yyyy"
-        let formatted = dateFormatter.string(from: createdDate)
-        // For Russian language
-        let capitalizedDate = formatted.prefix(1).uppercased() + formatted.dropFirst()
-        return capitalizedDate
     }
 }

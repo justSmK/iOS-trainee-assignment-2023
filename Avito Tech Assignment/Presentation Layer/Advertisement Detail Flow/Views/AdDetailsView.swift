@@ -9,76 +9,140 @@ import UIKit
 
 final class AdDetailsView: UIView {
     
+    // MARK: - Private Properties
+    
     private var advertisementDetail: AdvertisementDetail? {
         didSet {
             guard let ad = advertisementDetail else { return }
             titleLabel.text = ad.title
-            priceLabel.text = ad.price
-            locationLabel.text = ad.location
+            priceLabel.text = ad.formattedPrice
+            locationLabel.text = ad.location + ", " + ad.address
             createdDateLabel.text = ad.formattedCreatedDate
-            descriptionLabel.text = ad.description
+            descriptionTextView.text = ad.description
             emailLabel.text = ad.email
             phoneNumberLabel.text = ad.phoneNumber
-            addressLabel.text = ad.address
         }
     }
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 12
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        return imageView
+    // MARK: - Private UI Properties
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .equalCentering
+        stackView.spacing = 10
+        return stackView
     }()
+    
+    private let imageView = AdImageView()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = AppFonts.Details.title
+        label.numberOfLines = 0
         return label
     }()
     
     private let priceLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let locationLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let createdDateLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = AppFonts.Details.price
         return label
     }()
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = AppFonts.Details.descriptionStaticLabel
+        label.text = AppData.descriptionLabelText
         return label
+    }()
+    
+    private let descriptionTextView: UITextView = {
+        let textView = UITextView()
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.isEditable = false
+        textView.isScrollEnabled = false
+        textView.font = AppFonts.Details.description
+        return textView
+    }()
+    
+    // MARK: Location
+    
+    private let locationImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = AppIcons.location
+        return imageView
+    }()
+    
+    private let locationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = AppFonts.Details.location
+        return label
+    }()
+    
+    private lazy var locationImageLabelView = ImageLabelView(imageView: locationImageView, label: locationLabel)
+    
+    // MARK: Date
+    
+    private let calendarImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = AppIcons.calendar
+        return imageView
+    }()
+    
+    private let createdDateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = AppFonts.Details.createdDate
+        return label
+    }()
+    
+    private lazy var dateImageLabelView = ImageLabelView(imageView: calendarImageView, label: createdDateLabel)
+    
+    // MARK: Email
+    
+    private let mailImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = AppIcons.mail
+        return imageView
     }()
     
     private let emailLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = AppFonts.Details.email
         return label
+    }()
+    
+    private lazy var emailImageLabelView = ImageLabelView(imageView: mailImageView, label: emailLabel)
+    
+    // MARK: Phone
+    
+    private let phoneImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = AppIcons.phone
+        return imageView
     }()
     
     private let phoneNumberLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = AppFonts.Details.phone
         return label
     }()
     
-    private let addressLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private lazy var phoneImageLabelView = ImageLabelView(imageView: phoneImageView, label: phoneNumberLabel)
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -91,56 +155,42 @@ final class AdDetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(advertisementDetailModel: AdvertisementDetail) {
-//        if let image {
-//            imageView.image = image
-////            activityIndicator.stopAnimating()
-//        } else {
-////            activityIndicator.startAnimating()
-//        }
-        advertisementDetail = advertisementDetailModel
-    }
+    // MARK: - Internal Methods
     
-    func configure(image: UIImage?) {
-        imageView.image = image
+    func configure(image: UIImage?, adDetailModel: AdvertisementDetail) {
+        if let image {
+            imageView.image = image
+            advertisementDetail = adDetailModel
+        }
     }
 }
+
+// MARK: - Setup Layout, Constraints
 
 private extension AdDetailsView {
     func setupLayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubviews(
+        addSubview(stackView)
+        
+        stackView.addArrangedSubviews(
             imageView,
-            titleLabel,
             priceLabel,
-            locationLabel,
-            createdDateLabel
+            titleLabel,
+            descriptionLabel,
+            descriptionTextView,
+            locationImageLabelView,
+            dateImageLabelView,
+            emailImageLabelView,
+            phoneImageLabelView
         )
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: self.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            imageView.heightAnchor.constraint(equalTo: self.widthAnchor),
-            
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            
-            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            priceLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            priceLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            
-            locationLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor),
-            locationLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            locationLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            
-            createdDateLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor),
-            createdDateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            createdDateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            createdDateLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            stackView.topAnchor.constraint(equalTo: self.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
 }

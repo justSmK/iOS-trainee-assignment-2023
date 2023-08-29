@@ -11,12 +11,9 @@ final class AdvertisementView: UIView {
     
     enum State {
         case loading
-        case content
+        case present
         case error(String)
     }
-    
-    private let loadingView = UIActivityIndicatorView()
-    private let errorView = UILabel()
     
     var currentState: State = .loading {
         didSet {
@@ -24,14 +21,21 @@ final class AdvertisementView: UIView {
         }
     }
     
+    // MARK: - Private Properties
+    
+    private let loadingView: LoadingViewProtocol = LoadingView()
+    
+    private var tryAgainLoadData: (() -> Void)?
+    
     private let advertisementCollectionView = AdvertisementCollectionView()
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
         setupConstraints()
         
-        setupErrorView()
         setupLoadingView()
     }
     
@@ -41,51 +45,44 @@ final class AdvertisementView: UIView {
     
     // MARK: - Internal Methods
     
-    func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols) {
+    func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols, tryAgainLoadData: (() -> Void)?) {
         advertisementCollectionView.configure(dataSourceDelegate: dataSourceDelegate)
+        self.tryAgainLoadData = tryAgainLoadData
     }
     
-    
-    private func setupLoadingView() {
-        loadingView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(loadingView)
-        NSLayoutConstraint.activate([
-            loadingView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            loadingView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-        ])
-    }
-    
-    private func setupErrorView() {
-        errorView.textColor = .red
-        errorView.numberOfLines = 0
-        errorView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(errorView)
-        NSLayoutConstraint.activate([
-            errorView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            errorView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            errorView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            errorView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
-        ])
-    }
+    // MARK: - Private Methods
     
     private func updateState() {
         
         switch currentState {
             
         case .loading:
-            loadingView.isHidden = false
             advertisementCollectionView.isHidden = true
             loadingView.startAnimating()
-        case .content:
-            loadingView.isHidden = true
+        case .present:
             advertisementCollectionView.isHidden = false
+            advertisementCollectionView.reloadData()
             loadingView.stopAnimating()
         case .error(let message):
-            loadingView.isHidden = true
             advertisementCollectionView.isHidden = true
             loadingView.stopAnimating()
-            errorView.text = message
+            showErrorAlert(message: message)
         }
+    }
+    
+    private func showErrorAlert(message: String) {
+        if let viewController = self.findViewController() {
+            let errorAlertController = ErrorViewAlertController(message: message, tryAgainHandler: self.tryAgainLoadData)
+            viewController.present(errorAlertController, animated: true)
+        }
+    }
+    
+    private func findViewController() -> UIViewController? {
+        var responder: UIResponder? = self
+        while !(responder is UIViewController) && responder != nil {
+            responder = responder?.next
+        }
+        return responder as? UIViewController
     }
 }
 
@@ -105,10 +102,12 @@ private extension AdvertisementView {
             advertisementCollectionView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
-}
-
-extension AdvertisementView: CollectionAdvertisementProtocol {
-    func reloadData() {
-        advertisementCollectionView.reloadData()
+    
+    private func setupLoadingView() {
+        addSubview(loadingView)
+        NSLayoutConstraint.activate([
+            loadingView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+        ])
     }
 }

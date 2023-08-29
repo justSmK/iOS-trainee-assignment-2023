@@ -7,34 +7,30 @@
 
 import Foundation
 
-final class AdvertisementService: AdvertisementServiceProtocol {
+final class AdvertisementService {
     
     // MARK: - Private Properties
     
     private let advertisementClient: AdvertisementAPIClientProtocol
     private let jsonDecoder: JSONDecoder
     
-    // MARK: - Initializer
+    // MARK: - Initializers
     
-    init(advertisementClient: AdvertisementAPIClientProtocol, jsonDecoder: JSONDecoder = JSONDecoder()) {
+    init(
+        advertisementClient: AdvertisementAPIClientProtocol,
+        jsonDecoder: JSONDecoder = JSONDecoder()
+    ) {
         self.advertisementClient = advertisementClient
         self.jsonDecoder = jsonDecoder
         setupJsonDecoder()
     }
     
-    // MARK: - AdvertisementServiceProtocol
-    
-    func fetchAdvertisements(completion: @escaping (Result<AdvertisementsResponse, APIError>) -> Void) {
-        request(endpoint: .fetchAdvertisements, completion: completion)
-    }
-
-    func fetchAdvertisementDetail(itemId: String, completion: @escaping (Result<AdvertisementDetail, APIError>) -> Void) {
-        request(endpoint: .fetchAdvertisementDetail(itemId: itemId), completion: completion)
-    }
-    
     // MARK: - Private Methods
     
-    private func request<T: Decodable>(endpoint: EndpointAdvertisement, completion: @escaping (Result<T, APIError>) -> Void) {
+    private func request<T: Decodable>(
+        endpoint: EndpointAdvertisement,
+        completion: @escaping (Result<T, APIError>) -> Void
+    ) {
         guard let url = endpoint.url else {
             completion(.failure(.urlSessionError("Invalid URL")))
             return
@@ -60,5 +56,22 @@ final class AdvertisementService: AdvertisementServiceProtocol {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         self.jsonDecoder.dateDecodingStrategy = .formatted(dateFormatter)
+    }
+}
+
+// MARK: - AdvertisementServiceProtocol
+
+extension AdvertisementService: AdvertisementServiceProtocol {
+    func fetchAdvertisements(
+        completion: @escaping (Result<AdvertisementsResponse, APIError>) -> Void
+    ) {
+        request(endpoint: .fetchAdvertisements, completion: completion)
+    }
+
+    func fetchAdvertisementDetail(
+        itemId: String,
+        completion: @escaping (Result<AdvertisementDetail, APIError>) -> Void
+    ) {
+        request(endpoint: .fetchAdvertisementDetail(itemId: itemId), completion: completion)
     }
 }

@@ -13,7 +13,7 @@ final class AdvertisementAPIClient: AdvertisementAPIClientProtocol {
     
     private let networkService: NetworkServiceProtocol
     
-    // MARK: - Initializer
+    // MARK: - Initializers
     
     init(networkService: NetworkServiceProtocol) {
         self.networkService = networkService
