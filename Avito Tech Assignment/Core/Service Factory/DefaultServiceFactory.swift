@@ -10,7 +10,7 @@ import Foundation
 final class DefaultServiceFactory: ServiceFactoryProtocol {
     func createNetworkService() -> NetworkServiceProtocol {
         let configuration = URLSessionConfiguration.default
-        configuration.multipathServiceType = .aggregate
+//        configuration.multipathServiceType = .aggregate
         let urlSession = URLSession(configuration: configuration)
         return NetworkService(session: urlSession)
     }

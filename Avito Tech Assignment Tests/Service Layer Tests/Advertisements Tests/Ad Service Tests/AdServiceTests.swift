@@ -97,4 +97,30 @@ final class AdServiceTests: XCTestCase {
         
         waitForExpectations(timeout: 1)
     }
+    
+    func testAdvertisementServiceMemoryLearTeardown() {
+        let localMockAdClient = MockAdvertisementAPIClient()
+        let localAdService = AdvertisementService(advertisementClient: localMockAdClient)
+        
+        let expectation = self.expectation(description: "Expecting Success")
+        
+        let jsonData = mockAdvertisementsResponseJSON.data(using: .utf8)!
+        
+        mockAdClient.mockData = jsonData
+        
+        adService.fetchAdvertisements { result in
+            if case .success(_) = result {
+                expectation.fulfill()
+            } else {
+                XCTFail("Expecting success but got failure")
+            }
+        }
+        
+        waitForExpectations(timeout: 1)
+        
+        addTeardownBlock { [weak localMockAdClient, weak localAdService] in
+            XCTAssertNil(localMockAdClient, "potential memory leak on \(String(describing: localMockAdClient))")
+            XCTAssertNil(localAdService, "potential memory leak on \(String(describing: localAdService))")
+        }
+    }
 }

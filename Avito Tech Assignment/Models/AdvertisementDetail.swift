@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct AdvertisementDetail: Codable {
+struct AdvertisementDetail: Codable, Formattable {
     let id, title, price, location: String
-    let imageURL: String
-    let createdDate, description, email, phoneNumber: String
+    let imageURL: URL
+    let createdDate: Date
+    let description, email, phoneNumber: String
     let address: String
     
     enum CodingKeys: String, CodingKey {

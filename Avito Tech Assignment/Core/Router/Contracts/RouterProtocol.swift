@@ -14,6 +14,6 @@ protocol RouterMain: AnyObject {
 
 protocol RouterProtocol: RouterMain {
     func initialViewController()
-    func showDetail()
+    func showAdvertisementDetails(advertisementId: String)
     func popToRoot()
 }

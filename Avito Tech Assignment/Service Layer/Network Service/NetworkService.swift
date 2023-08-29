@@ -36,7 +36,7 @@ final class NetworkService: NetworkServiceProtocol {
 
             guard let response = response as? HTTPURLResponse, response.status?.responseType == .success else {
                 let response = response as? HTTPURLResponse
-                completion(.failure(.serverError("Received HTTP status: \(String(describing: response?.status))")))
+                completion(.failure(.serverError("Received HTTP status: \(String(describing: response?.status?.responseType))")))
                 return
             }
 

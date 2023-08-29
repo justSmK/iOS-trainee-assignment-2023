@@ -8,14 +8,20 @@
 import UIKit.UIImage
 
 final class ImageService: ImageServiceProtocol {
+    
+    // MARK: - Private Properties
 
     private var cache = NSCache<NSURL, UIImage>()
     
     private var imageClient: ImageAPIClientProtocol
     
+    // MARK: - Initializers
+    
     init(imageClient: ImageAPIClientProtocol) {
         self.imageClient = imageClient
     }
+    
+    // MARK: - Internal Methods
     
     func fetchImage(itemId: String, completion: @escaping (Result<UIImage, APIError>) -> Void) {
         guard let url = EndpointImage.fetchImage(itemId: itemId).url else {

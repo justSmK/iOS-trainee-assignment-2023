@@ -9,7 +9,11 @@ import UIKit
 
 final class AdvertisementCollectionView: UICollectionView {
     
+    // MARK: - Private Properties
+    
     private let flowLayout = UICollectionViewFlowLayout()
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: flowLayout)
@@ -23,16 +27,22 @@ final class AdvertisementCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Internal Methods
+    
     func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols) {
         self.dataSource = dataSourceDelegate
         self.delegate = dataSourceDelegate
-//        self.prefetchDataSource = dataSourceDelegate
     }
 }
+
+// MARK: - Setup Layout
 
 private extension AdvertisementCollectionView {
     func setupLayout() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.register(AdvertisementCollectionViewCell.self, forCellWithReuseIdentifier: AdvertisementCollectionViewCell.identifier)
+        self.register(
+            AdvertisementCollectionViewCell.self,
+            forCellWithReuseIdentifier: AdvertisementCollectionViewCell.identifier
+        )
     }
 }

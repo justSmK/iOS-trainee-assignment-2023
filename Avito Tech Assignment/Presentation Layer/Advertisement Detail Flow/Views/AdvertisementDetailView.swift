@@ -1,13 +1,13 @@
 //
-//  AdvertisementView.swift
+//  AdvertisementDetailView.swift
 //  Avito Tech Assignment
 //
-//  Created by Sergei Semko on 8/26/23.
+//  Created by Sergei Semko on 8/28/23.
 //
 
 import UIKit
 
-final class AdvertisementView: UIView {
+final class AdvertisementDetailView: UIView {
     
     enum State {
         case loading
@@ -27,7 +27,7 @@ final class AdvertisementView: UIView {
     
     private var tryAgainLoadData: (() -> Void)?
     
-    private let advertisementCollectionView = AdvertisementCollectionView()
+    private let adDetailsView = AdDetailsView()
     
     // MARK: - Initializers
     
@@ -35,7 +35,7 @@ final class AdvertisementView: UIView {
         super.init(frame: frame)
         setupLayout()
         setupConstraints()
-
+        
         setupLoadingView()
     }
     
@@ -45,10 +45,12 @@ final class AdvertisementView: UIView {
     
     // MARK: - Internal Methods
     
-    func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols, refreshControl: UIRefreshControl?, tryAgainLoadData: (() -> Void)?) {
-        advertisementCollectionView.configure(dataSourceDelegate: dataSourceDelegate)
+    func configure(image: UIImage?, adDetailModel: AdvertisementDetail) {
+        adDetailsView.configure(image: image, adDetailModel: adDetailModel)
+    }
+    
+    func configureErrorAction(tryAgainLoadData: (() -> Void)?) {
         self.tryAgainLoadData = tryAgainLoadData
-        self.advertisementCollectionView.refreshControl = refreshControl
     }
     
     // MARK: - Private Methods
@@ -58,14 +60,13 @@ final class AdvertisementView: UIView {
         switch currentState {
             
         case .loading:
-            advertisementCollectionView.isHidden = true
+            adDetailsView.isHidden = true
             loadingView.startAnimating()
         case .present:
-            advertisementCollectionView.isHidden = false
-            advertisementCollectionView.reloadData()
+            adDetailsView.isHidden = false
             loadingView.stopAnimating()
         case .error(let message):
-            advertisementCollectionView.isHidden = true
+            adDetailsView.isHidden = true
             loadingView.stopAnimating()
             showErrorAlert(message: message)
         }
@@ -89,22 +90,22 @@ final class AdvertisementView: UIView {
 
 // MARK: - Setup Layout, Constraints
 
-private extension AdvertisementView {
+private extension AdvertisementDetailView {
     func setupLayout() {
-        addSubview(advertisementCollectionView)
         self.backgroundColor = AppColors.background
+        addSubview(adDetailsView)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            advertisementCollectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            advertisementCollectionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
-            advertisementCollectionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
-            advertisementCollectionView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            adDetailsView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0),
+            adDetailsView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            adDetailsView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10),
+            adDetailsView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
         ])
     }
     
-    private func setupLoadingView() {
+    func setupLoadingView() {
         addSubview(loadingView)
         NSLayoutConstraint.activate([
             loadingView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -112,3 +113,4 @@ private extension AdvertisementView {
         ])
     }
 }
+

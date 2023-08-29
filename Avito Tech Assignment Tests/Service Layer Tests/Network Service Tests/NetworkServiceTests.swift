@@ -148,6 +148,27 @@ final class NetworkServiceTests: XCTestCase {
         wait(for: [expectation], timeout: 1)
     }
 
-
+    func testNetworkServiceMemoryLearTeardown() {
+        let localNetworkService = NetworkService()
+        let expectation = XCTestExpectation(description: "Expecting a successful request")
+        
+        let url = URL(string: "https://jsonplaceholder.typicode.com/posts/1")!
+        
+        localNetworkService.performRequest(url: url, httpMethod: .get) { result in
+            switch result {
+            case .success(let data):
+                XCTAssertNotNil(data, "No data received")
+            case .failure(let error):
+                XCTFail("Request failed: \(error)")
+            }
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 1)
+        
+        addTeardownBlock { [weak localNetworkService] in
+            XCTAssertNil(localNetworkService, "potential memory leak on \(String(describing: localNetworkService))")
+        }
+    }
     
 }

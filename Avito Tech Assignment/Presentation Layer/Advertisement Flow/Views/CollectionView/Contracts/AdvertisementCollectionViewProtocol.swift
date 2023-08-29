@@ -7,4 +7,4 @@
 
 import UIKit.UICollectionView
 
-typealias AdvertisementCollectionViewProtocols = UICollectionViewDataSource & UICollectionViewDelegateFlowLayout & UICollectionViewDataSourcePrefetching
+typealias AdvertisementCollectionViewProtocols = UICollectionViewDataSource & UICollectionViewDelegateFlowLayout

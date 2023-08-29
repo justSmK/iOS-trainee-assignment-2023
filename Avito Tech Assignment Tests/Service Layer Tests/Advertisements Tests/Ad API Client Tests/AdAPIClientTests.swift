@@ -62,4 +62,30 @@ final class AdAPIClientTests: XCTestCase {
         waitForExpectations(timeout: 1)
         
     }
+    
+    func testAdvertisementApiClientMemoryLearTeardown() {
+        let localMockNetworkService = MockNetworkService()
+        let localAdvertisementApiClient = AdvertisementAPIClient(networkService: localMockNetworkService)
+
+        let expectation = self.expectation(description: "Expecting Success")
+        
+        let testData = Data([0x01, 0x02])
+        localMockNetworkService.mockData = testData
+        
+        localAdvertisementApiClient.fetchData(from: Self.testURL) { result in
+            if case .success(let data) = result {
+                XCTAssertEqual(data, testData)
+                expectation.fulfill()
+            } else {
+                XCTFail("Expecting success but got failure")
+            }
+        }
+        
+        waitForExpectations(timeout: 1)
+        
+        addTeardownBlock { [weak localMockNetworkService, weak localAdvertisementApiClient] in
+            XCTAssertNil(localMockNetworkService, "potential memory leak on \(String(describing: localMockNetworkService))")
+            XCTAssertNil(localAdvertisementApiClient, "potential memory leak on \(String(describing: localAdvertisementApiClient))")
+        }
+    }
 }
