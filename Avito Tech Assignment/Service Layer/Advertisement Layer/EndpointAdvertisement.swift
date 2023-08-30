@@ -7,8 +7,6 @@
 
 import Foundation
 
-// https://www.avito.st/s/interns-ios/main-page.json
-
 enum EndpointAdvertisement {
     case fetchAdvertisements
     case fetchAdvertisementDetail(itemId: String)
