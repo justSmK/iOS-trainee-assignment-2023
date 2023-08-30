@@ -35,7 +35,7 @@ final class AssemblyBuilder {
 // MARK: - AssemblyBuilderProtocol
 
 extension AssemblyBuilder: AssemblyBuilderProtocol {
-    func createInitialSetup() -> (UINavigationController, Router) {
+    func createInitialSetup() -> (UINavigationController, RouterProtocol) {
         let navigationController = UINavigationController()
         let router = Router(navigationController: navigationController, assemblyBuilder: self)
         return (navigationController, router)
@@ -58,8 +58,8 @@ extension AssemblyBuilder: AssemblyBuilderProtocol {
     }
     
     func createAdvertisementDetailViewController(advertisementId: String, router: RouterProtocol) -> UIViewController {
-        let view = AdvertisementDetailViewController()
         
+        let view = AdvertisementDetailViewController()
         view.title = AppData.adDetailVCTitle
         
         let presenter = AdvertisementDetailPresenter(

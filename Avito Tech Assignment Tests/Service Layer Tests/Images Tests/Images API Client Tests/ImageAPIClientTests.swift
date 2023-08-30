@@ -21,9 +21,9 @@ final class ImageAPIClientTests: XCTestCase {
     }
 
     override func tearDown() {
-        super.tearDown()
         mockNetworkService = nil
         imageApiClient = nil
+        super.tearDown()
     }
 
     func testFetchDataSuccess() {

@@ -8,7 +8,7 @@
 import UIKit.UIViewController
 
 protocol AssemblyBuilderProtocol: AnyObject {
-    func createInitialSetup() -> (UINavigationController, Router)
+    func createInitialSetup() -> (UINavigationController, RouterProtocol)
     func createAdvertisementsViewController(router: RouterProtocol) -> UIViewController
     func createAdvertisementDetailViewController(advertisementId: String ,router: RouterProtocol) -> UIViewController
 }

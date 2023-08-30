@@ -67,6 +67,18 @@
 		BBB81A892A9F489300EB8B51 /* AdvertisementDetailPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81A882A9F489300EB8B51 /* AdvertisementDetailPresenterProtocol.swift */; };
 		BBB81A8B2A9F48A000EB8B51 /* AdvertisementDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81A8A2A9F48A000EB8B51 /* AdvertisementDetailPresenter.swift */; };
 		BBB81A8D2A9F526800EB8B51 /* AdvertisementsErrorViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81A8C2A9F526800EB8B51 /* AdvertisementsErrorViewDelegate.swift */; };
+		BBB81A942A9F5BE400EB8B51 /* RouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81A932A9F5BE400EB8B51 /* RouterTests.swift */; };
+		BBB81A962A9F5CE200EB8B51 /* MockAssemblyBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81A952A9F5CE200EB8B51 /* MockAssemblyBuilder.swift */; };
+		BBB81A992A9F626C00EB8B51 /* MockServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81A982A9F626C00EB8B51 /* MockServiceFactory.swift */; };
+		BBB81A9B2A9F630D00EB8B51 /* AssemblyBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81A9A2A9F630D00EB8B51 /* AssemblyBuilderTests.swift */; };
+		BBB81A9D2A9F646000EB8B51 /* MockImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81A9C2A9F646000EB8B51 /* MockImageService.swift */; };
+		BBB81A9F2A9F648500EB8B51 /* MockAdvertisementService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81A9E2A9F648500EB8B51 /* MockAdvertisementService.swift */; };
+		BBB81AA12A9F657A00EB8B51 /* MockRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81AA02A9F657A00EB8B51 /* MockRouter.swift */; };
+		BBB81AA42A9F664300EB8B51 /* ServiceFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81AA32A9F664300EB8B51 /* ServiceFactoryTests.swift */; };
+		BBB81AA72A9F67E000EB8B51 /* AdvertisementPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81AA62A9F67E000EB8B51 /* AdvertisementPresenterTests.swift */; };
+		BBB81AAA2A9F684700EB8B51 /* MockAdvertisementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81AA92A9F684700EB8B51 /* MockAdvertisementView.swift */; };
+		BBB81AAD2A9F6C1400EB8B51 /* AdvertisementDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81AAC2A9F6C1400EB8B51 /* AdvertisementDetailPresenterTests.swift */; };
+		BBB81AAF2A9F6C6600EB8B51 /* MockAdvertisementDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB81AAE2A9F6C6600EB8B51 /* MockAdvertisementDetailView.swift */; };
 		BBDD69A92A9CFB2100910266 /* AssemblyBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDD69A82A9CFB2100910266 /* AssemblyBuilderProtocol.swift */; };
 		BBDD69AD2A9CFB6400910266 /* ServiceFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDD69AC2A9CFB6400910266 /* ServiceFactoryProtocol.swift */; };
 		BBDD69AF2A9CFB7B00910266 /* DefaultServiceFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDD69AE2A9CFB7B00910266 /* DefaultServiceFactory.swift */; };
@@ -153,6 +165,18 @@
 		BBB81A882A9F489300EB8B51 /* AdvertisementDetailPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementDetailPresenterProtocol.swift; sourceTree = "<group>"; };
 		BBB81A8A2A9F48A000EB8B51 /* AdvertisementDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementDetailPresenter.swift; sourceTree = "<group>"; };
 		BBB81A8C2A9F526800EB8B51 /* AdvertisementsErrorViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementsErrorViewDelegate.swift; sourceTree = "<group>"; };
+		BBB81A932A9F5BE400EB8B51 /* RouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterTests.swift; sourceTree = "<group>"; };
+		BBB81A952A9F5CE200EB8B51 /* MockAssemblyBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAssemblyBuilder.swift; sourceTree = "<group>"; };
+		BBB81A982A9F626C00EB8B51 /* MockServiceFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServiceFactory.swift; sourceTree = "<group>"; };
+		BBB81A9A2A9F630D00EB8B51 /* AssemblyBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyBuilderTests.swift; sourceTree = "<group>"; };
+		BBB81A9C2A9F646000EB8B51 /* MockImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageService.swift; sourceTree = "<group>"; };
+		BBB81A9E2A9F648500EB8B51 /* MockAdvertisementService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAdvertisementService.swift; sourceTree = "<group>"; };
+		BBB81AA02A9F657A00EB8B51 /* MockRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRouter.swift; sourceTree = "<group>"; };
+		BBB81AA32A9F664300EB8B51 /* ServiceFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFactoryTests.swift; sourceTree = "<group>"; };
+		BBB81AA62A9F67E000EB8B51 /* AdvertisementPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementPresenterTests.swift; sourceTree = "<group>"; };
+		BBB81AA92A9F684700EB8B51 /* MockAdvertisementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAdvertisementView.swift; sourceTree = "<group>"; };
+		BBB81AAC2A9F6C1400EB8B51 /* AdvertisementDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementDetailPresenterTests.swift; sourceTree = "<group>"; };
+		BBB81AAE2A9F6C6600EB8B51 /* MockAdvertisementDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAdvertisementDetailView.swift; sourceTree = "<group>"; };
 		BBB9E0C52A9BCD01005B5420 /* Avito Tech Assignment.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Avito Tech Assignment.xctestplan"; sourceTree = "<group>"; };
 		BBDD69A82A9CFB2100910266 /* AssemblyBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssemblyBuilderProtocol.swift; sourceTree = "<group>"; };
 		BBDD69AC2A9CFB6400910266 /* ServiceFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFactoryProtocol.swift; sourceTree = "<group>"; };
@@ -188,6 +212,8 @@
 			children = (
 				BBB9E0C52A9BCD01005B5420 /* Avito Tech Assignment.xctestplan */,
 				BB0EFFF42A9AA6DF009BA8B9 /* Service Layer Tests */,
+				BBB81A8F2A9F5ACA00EB8B51 /* Presentation Layer Tests */,
+				BBB81A902A9F5AD000EB8B51 /* Core Tests */,
 			);
 			path = "Avito Tech Assignment Tests";
 			sourceTree = "<group>";
@@ -206,8 +232,12 @@
 		BB0EFFFB2A9AADFD009BA8B9 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				BB0EFFFC2A9AAE14009BA8B9 /* MockURLSession.swift */,
 				BB822B332A9CD9F400681C2B /* MockNetworkService.swift */,
+				BB63E2842A9CF4DB00E3CA37 /* MockImageAPIClient.swift */,
+				BB0EFFFC2A9AAE14009BA8B9 /* MockURLSession.swift */,
+				BB822B392A9CDD5300681C2B /* MockAdvertisementAPIClient.swift */,
+				BBB81A9C2A9F646000EB8B51 /* MockImageService.swift */,
+				BBB81A9E2A9F648500EB8B51 /* MockAdvertisementService.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -393,7 +423,6 @@
 		BB63E27D2A9CF2BF00E3CA37 /* Images Service Tests */ = {
 			isa = PBXGroup;
 			children = (
-				BB63E2832A9CF4C600E3CA37 /* Mocks */,
 				BB63E2802A9CF41400E3CA37 /* ImageServiceTests.swift */,
 			);
 			path = "Images Service Tests";
@@ -406,14 +435,6 @@
 				BB822B3E2A9CE35C00681C2B /* MockAdvertisementDetailJSON.swift */,
 			);
 			path = JSON;
-			sourceTree = "<group>";
-		};
-		BB63E2832A9CF4C600E3CA37 /* Mocks */ = {
-			isa = PBXGroup;
-			children = (
-				BB63E2842A9CF4DB00E3CA37 /* MockImageAPIClient.swift */,
-			);
-			path = Mocks;
 			sourceTree = "<group>";
 		};
 		BB748C8D2A99E201005CB3B1 /* CollectionView */ = {
@@ -630,7 +651,6 @@
 			isa = PBXGroup;
 			children = (
 				BB63E2822A9CF4AC00E3CA37 /* JSON */,
-				BB822B392A9CDD5300681C2B /* MockAdvertisementAPIClient.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -708,6 +728,86 @@
 				BBB81A8C2A9F526800EB8B51 /* AdvertisementsErrorViewDelegate.swift */,
 			);
 			path = "Shared Contracts";
+			sourceTree = "<group>";
+		};
+		BBB81A8F2A9F5ACA00EB8B51 /* Presentation Layer Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BBB81AA82A9F680500EB8B51 /* Mocks */,
+				BBB81AA52A9F67BB00EB8B51 /* Advertisement Tests */,
+				BBB81AAB2A9F6BF600EB8B51 /* Advertisement Detail Tests */,
+			);
+			path = "Presentation Layer Tests";
+			sourceTree = "<group>";
+		};
+		BBB81A902A9F5AD000EB8B51 /* Core Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BBB81A922A9F5B5B00EB8B51 /* Mocks */,
+				BBB81A972A9F620700EB8B51 /* AssemblyBuilder Tests */,
+				BBB81A912A9F5B5200EB8B51 /* Router Tests */,
+				BBB81AA22A9F662E00EB8B51 /* ServiceFactory Tests */,
+			);
+			path = "Core Tests";
+			sourceTree = "<group>";
+		};
+		BBB81A912A9F5B5200EB8B51 /* Router Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BBB81A932A9F5BE400EB8B51 /* RouterTests.swift */,
+			);
+			path = "Router Tests";
+			sourceTree = "<group>";
+		};
+		BBB81A922A9F5B5B00EB8B51 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				BBB81A952A9F5CE200EB8B51 /* MockAssemblyBuilder.swift */,
+				BBB81A982A9F626C00EB8B51 /* MockServiceFactory.swift */,
+				BBB81AA02A9F657A00EB8B51 /* MockRouter.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		BBB81A972A9F620700EB8B51 /* AssemblyBuilder Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BBB81A9A2A9F630D00EB8B51 /* AssemblyBuilderTests.swift */,
+			);
+			path = "AssemblyBuilder Tests";
+			sourceTree = "<group>";
+		};
+		BBB81AA22A9F662E00EB8B51 /* ServiceFactory Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BBB81AA32A9F664300EB8B51 /* ServiceFactoryTests.swift */,
+			);
+			path = "ServiceFactory Tests";
+			sourceTree = "<group>";
+		};
+		BBB81AA52A9F67BB00EB8B51 /* Advertisement Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BBB81AA62A9F67E000EB8B51 /* AdvertisementPresenterTests.swift */,
+			);
+			path = "Advertisement Tests";
+			sourceTree = "<group>";
+		};
+		BBB81AA82A9F680500EB8B51 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				BBB81AA92A9F684700EB8B51 /* MockAdvertisementView.swift */,
+				BBB81AAE2A9F6C6600EB8B51 /* MockAdvertisementDetailView.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		BBB81AAB2A9F6BF600EB8B51 /* Advertisement Detail Tests */ = {
+			isa = PBXGroup;
+			children = (
+				BBB81AAC2A9F6C1400EB8B51 /* AdvertisementDetailPresenterTests.swift */,
+			);
+			path = "Advertisement Detail Tests";
 			sourceTree = "<group>";
 		};
 		BBDD69A52A9CFAF700910266 /* Core */ = {
@@ -901,17 +1001,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB63E2852A9CF4DB00E3CA37 /* MockImageAPIClient.swift in Sources */,
+				BBB81A992A9F626C00EB8B51 /* MockServiceFactory.swift in Sources */,
 				BB822B342A9CD9F400681C2B /* MockNetworkService.swift in Sources */,
 				BB0EFFFD2A9AAE14009BA8B9 /* MockURLSession.swift in Sources */,
+				BBB81AAA2A9F684700EB8B51 /* MockAdvertisementView.swift in Sources */,
 				BB822B3A2A9CDD5300681C2B /* MockAdvertisementAPIClient.swift in Sources */,
+				BBB81AA12A9F657A00EB8B51 /* MockRouter.swift in Sources */,
+				BBB81A9F2A9F648500EB8B51 /* MockAdvertisementService.swift in Sources */,
 				BB822B3C2A9CDF8600681C2B /* MockAdvertisementsResponseJSON.swift in Sources */,
+				BBB81AA42A9F664300EB8B51 /* ServiceFactoryTests.swift in Sources */,
 				BB822B2C2A9CCD5100681C2B /* NetworkServiceTests.swift in Sources */,
 				BB63E2812A9CF41400E3CA37 /* ImageServiceTests.swift in Sources */,
+				BBB81A962A9F5CE200EB8B51 /* MockAssemblyBuilder.swift in Sources */,
+				BBB81AAF2A9F6C6600EB8B51 /* MockAdvertisementDetailView.swift in Sources */,
 				BB822B2E2A9CD0F100681C2B /* NetworkServiceErrorTests.swift in Sources */,
+				BBB81A9D2A9F646000EB8B51 /* MockImageService.swift in Sources */,
 				BB822B312A9CD96900681C2B /* AdAPIClientTests.swift in Sources */,
 				BB822B382A9CDCFD00681C2B /* AdServiceTests.swift in Sources */,
+				BBB81AA72A9F67E000EB8B51 /* AdvertisementPresenterTests.swift in Sources */,
+				BBB81AAD2A9F6C1400EB8B51 /* AdvertisementDetailPresenterTests.swift in Sources */,
+				BBB81A942A9F5BE400EB8B51 /* RouterTests.swift in Sources */,
 				BB63E27F2A9CF2F300E3CA37 /* ImageAPIClientTests.swift in Sources */,
 				BB822B3F2A9CE35C00681C2B /* MockAdvertisementDetailJSON.swift in Sources */,
+				BBB81A9B2A9F630D00EB8B51 /* AssemblyBuilderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

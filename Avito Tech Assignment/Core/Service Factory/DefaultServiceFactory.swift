@@ -30,6 +30,4 @@ final class DefaultServiceFactory: ServiceFactoryProtocol {
     func createAdvertisementService(adClient: AdvertisementAPIClientProtocol) -> AdvertisementServiceProtocol {
         return AdvertisementService(advertisementClient: adClient)
     }
-    
-    
 }
