@@ -33,10 +33,14 @@ final class AdvertisementView: UIView {
     
     // MARK: - Internal Methods
     
-    func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols, delegate: AdvertisementsErrorViewDelegate, refreshControl: UIRefreshControl?) {
-        advertisementCollectionView.configure(dataSourceDelegate: dataSourceDelegate)
-        self.delegate = delegate
+    func configure(
+        errorDelegate: AdvertisementsErrorViewDelegate,
+        refreshControl: UIRefreshControl?,
+        with setupCollectionViewBlock: (UICollectionView) -> Void
+    ) {
+        self.delegate = errorDelegate
         self.advertisementCollectionView.refreshControl = refreshControl
+        setupCollectionViewBlock(advertisementCollectionView)
     }
     
     func startLoading() {
@@ -45,7 +49,6 @@ final class AdvertisementView: UIView {
     }
     
     func startPresent() {
-        advertisementCollectionView.reloadData()
         advertisementCollectionView.isHidden = false
         loadingView.stopAnimating()
     }
@@ -68,7 +71,7 @@ private extension AdvertisementView {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             advertisementCollectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            advertisementCollectionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            advertisementCollectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             advertisementCollectionView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             advertisementCollectionView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
         ])

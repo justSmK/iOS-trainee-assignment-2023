@@ -60,6 +60,7 @@ final class AdvertisementPresenterTests: XCTestCase {
         mockAdvertisementService.fetchAdvertisementsResult = .success(AdvertisementsResponse(advertisements: [adv1, adv2]))
         
         presenter.fetchData()
+
         DispatchQueue.main.async {
             expectation.fulfill()
         }
@@ -67,7 +68,6 @@ final class AdvertisementPresenterTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
         
         XCTAssertTrue(mockView.isShowPresentCalled)
-        XCTAssertEqual(presenter.getAdvertisementCount(), 2)
     }
     
     func testFetchAdvertisementsFailure() {

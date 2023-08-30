@@ -7,6 +7,7 @@
 
 protocol AdvertisementViewProtocol: AnyObject {
     func showLoading()
-    func showPresent()
+    func showPresent(_ advertisements: Advertisements)
     func showError(message: String)
+    func endRefreshing()
 }

@@ -9,6 +9,10 @@ import UIKit
 
 final class AdvertisementsViewController: UIViewController {
     
+    private enum Section {
+        case main
+    }
+  
     var presenter: AdvertisementsPresenterProtocol?
     
     // MARK: - Private Properties
@@ -17,6 +21,8 @@ final class AdvertisementsViewController: UIViewController {
     
     private var refreshControl: UIRefreshControl?
     
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Advertisement>?
+
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -25,14 +31,29 @@ final class AdvertisementsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        presenter?.fetchData()
         setupRefreshControl()
         
-        advertisementView.configure(
-            dataSourceDelegate: self,
-            delegate: self,
-            refreshControl: refreshControl
-        )
-        presenter?.fetchData()
+        advertisementView.configure(errorDelegate: self, refreshControl: refreshControl) { collectionView in
+            collectionView.delegate = self
+            dataSource = UICollectionViewDiffableDataSource<Section, Advertisement>(
+                collectionView: collectionView,
+                cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
+                    guard let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: AdvertisementCollectionViewCell.identifier,
+                        for: indexPath
+                    ) as? AdvertisementCollectionViewCell else {
+                        return UICollectionViewCell()
+                    }
+                    
+                    self?.presenter?.configureCell(at: indexPath, completion: { advertisement, image in
+                        cell.configure(image: image, advertisementModel: advertisement)
+                    })
+                    
+                    return cell
+                })
+        }
     }
     
     // MARK: - Private Methods
@@ -46,17 +67,30 @@ final class AdvertisementsViewController: UIViewController {
         presenter?.fetchData()
         refreshControl?.endRefreshing()
     }
+    
+    private func updateCollectionView(with items: [Advertisement]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Advertisement>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(items)
+        dataSource?.apply(snapshot, animatingDifferences: true)
+    }
 }
 
 // MARK: - AdvertisementViewProtocol
 
 extension AdvertisementsViewController: AdvertisementViewProtocol {
+
+    func endRefreshing() {
+        refreshControl?.endRefreshing()
+    }
+  
     func showLoading() {
         advertisementView.startLoading()
     }
     
-    func showPresent() {
+    func showPresent(_ advertisements: Advertisements) {
         advertisementView.startPresent()
+        updateCollectionView(with: advertisements)
     }
     
     func showError(message: String) {
@@ -76,70 +110,10 @@ extension AdvertisementsViewController: AdvertisementsErrorViewDelegate {
     }
 }
 
-// MARK: - UICollectionViewDataSource
+// MARK: - UICollectionViewDelegate
 
-extension AdvertisementsViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let presenter else { return 0 }
-        return presenter.getAdvertisementCount()
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: AdvertisementCollectionViewCell.identifier,
-            for: indexPath
-        ) as? AdvertisementCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        
-        presenter?.configure(cell: cell, at: indexPath)
-        
-        return cell
-    }
-}
-
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension AdvertisementsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        let offset = AppConstants.space * 3 // left + middle min space + right
-        let width = (collectionView.bounds.size.width - offset) / 2
-        let someSize = view.frame.height / 8
-        return CGSize(width: width, height: width + someSize)
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int
-    ) -> UIEdgeInsets {
-        let value = AppConstants.space
-        return UIEdgeInsets(top: value, left: value, bottom: value, right: value)
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumInteritemSpacingForSectionAt section: Int
-    ) -> CGFloat {
-        return AppConstants.space
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int
-    ) -> CGFloat {
-        return AppConstants.space
-    }
-    
+extension AdvertisementsViewController: UICollectionViewDelegate {
+  
     // MARK: Route to Advertisement Details
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

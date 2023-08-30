@@ -5,7 +5,7 @@
 //  Created by Sergei Semko on 8/30/23.
 //
 
-import Foundation
+import UIKit.UIImage
 
 final class AdvertisementPresenter {
     
@@ -49,25 +49,25 @@ final class AdvertisementPresenter {
         switch result {
         case .success(let response):
             advertisements = response.advertisements
-            view?.showPresent()
+            view?.showPresent(advertisements)
+            view?.endRefreshing()
         case .failure(let error):
             view?.showError(message: error.localizedDescription)
         }
     }
     
     // MARK: Fetch Image
-    
-    private func loadImageFor(cell: AdvertisementCollectionViewCell, withAdvertisement advertisement: Advertisement) {
+    private func loadImageFor(indexPath: IndexPath, completion: @escaping (UIImage?) -> Void) {
+        let advertisement = advertisements[indexPath.item]
         let adId = advertisement.id
         imageService.fetchImage(itemId: adId) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let image):
-                    if cell.currentId == advertisement.id {
-                        cell.configure(image: image, advertisementModel: advertisement)
-                    }
+                    completion(image)
                 case .failure(let error):
-                    print("Error \(error)")
+                    print("Error: \(error.localizedDescription)")
+                    completion(nil)
                 }
             }
         }
@@ -82,14 +82,11 @@ extension AdvertisementPresenter: AdvertisementsPresenterProtocol {
         fetchAdvertisements()
     }
     
-    func getAdvertisementCount() -> Int {
-        return advertisements.count
-    }
-    
-    func configure(cell: AdvertisementCollectionViewCell, at indexPath: IndexPath) {
+    func configureCell(at indexPath: IndexPath, completion: @escaping (Advertisement, UIImage?) -> Void) {
         let advertisement = advertisements[indexPath.item]
-        cell.currentId = advertisement.id
-        loadImageFor(cell: cell, withAdvertisement: advertisement)
+        loadImageFor(indexPath: indexPath) { image in
+            completion(advertisement, image)
+        }
     }
     
     func didSelectItem(at indexPath: IndexPath) {
