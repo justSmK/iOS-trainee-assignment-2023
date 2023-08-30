@@ -34,6 +34,7 @@ final class NetworkServiceErrorTests: XCTestCase {
     override func tearDown() {
         mockSession = nil
         networkService = nil
+        super.tearDown()
     }
 
     func testNoInternetConnection() {

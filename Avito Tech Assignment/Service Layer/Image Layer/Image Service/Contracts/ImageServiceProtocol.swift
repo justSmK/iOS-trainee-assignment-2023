@@ -10,6 +10,4 @@ import UIKit.UIImage
 protocol ImageServiceProtocol: AnyObject {
     func fetchImage(itemId: String, completion: @escaping (Result<UIImage, APIError>) -> Void)
     func fetchImage(from url: URL, completion: @escaping (Result<UIImage, APIError>) -> Void)
-
-//    func prefetchImage(from url: URL)
 }

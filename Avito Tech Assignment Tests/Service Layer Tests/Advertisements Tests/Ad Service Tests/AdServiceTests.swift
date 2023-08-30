@@ -20,9 +20,9 @@ final class AdServiceTests: XCTestCase {
     }
     
     override func tearDown() {
-        super.tearDown()
         mockAdClient = nil
         adService = nil
+        super.tearDown()
     }
     
     func testFetchAdvertisementsSuccess() {

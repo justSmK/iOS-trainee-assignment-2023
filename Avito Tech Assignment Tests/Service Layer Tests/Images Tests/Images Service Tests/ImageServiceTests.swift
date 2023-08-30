@@ -23,9 +23,9 @@ final class ImageServiceTests: XCTestCase {
     }
     
     override func tearDown() {
+        mockImageClient = nil
+        mockImageClient = nil
         super.tearDown()
-        mockImageClient = nil
-        mockImageClient = nil
     }
 
     func testFetchImageSuccess() {

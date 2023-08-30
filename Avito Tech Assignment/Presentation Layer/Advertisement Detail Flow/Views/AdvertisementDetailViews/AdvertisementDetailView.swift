@@ -9,23 +9,11 @@ import UIKit
 
 final class AdvertisementDetailView: UIView {
     
-    enum State {
-        case loading
-        case present
-        case error(String)
-    }
-    
-    var currentState: State = .loading {
-        didSet {
-            updateState()
-        }
-    }
+    weak var delegate: AdvertisementsErrorViewDelegate?
     
     // MARK: - Private Properties
     
     private let loadingView: LoadingViewProtocol = LoadingView()
-    
-    private var tryAgainLoadData: (() -> Void)?
     
     private let adDetailsView = AdDetailsView()
     
@@ -45,46 +33,21 @@ final class AdvertisementDetailView: UIView {
     
     // MARK: - Internal Methods
     
-    func configure(image: UIImage?, adDetailModel: AdvertisementDetail) {
+    func showLoading() {
+        adDetailsView.isHidden = true
+        loadingView.startAnimating()
+    }
+    
+    func showPresentStateConfigure(image: UIImage?, adDetailModel: AdvertisementDetail) {
+        adDetailsView.isHidden = false
+        loadingView.stopAnimating()
         adDetailsView.configure(image: image, adDetailModel: adDetailModel)
     }
     
-    func configureErrorAction(tryAgainLoadData: (() -> Void)?) {
-        self.tryAgainLoadData = tryAgainLoadData
-    }
-    
-    // MARK: - Private Methods
-    
-    private func updateState() {
-        
-        switch currentState {
-            
-        case .loading:
-            adDetailsView.isHidden = true
-            loadingView.startAnimating()
-        case .present:
-            adDetailsView.isHidden = false
-            loadingView.stopAnimating()
-        case .error(let message):
-            adDetailsView.isHidden = true
-            loadingView.stopAnimating()
-            showErrorAlert(message: message)
-        }
-    }
-    
-    private func showErrorAlert(message: String) {
-        if let viewController = self.findViewController() {
-            let errorAlertController = ErrorViewAlertController(message: message, tryAgainHandler: self.tryAgainLoadData)
-            viewController.present(errorAlertController, animated: true)
-        }
-    }
-    
-    private func findViewController() -> UIViewController? {
-        var responder: UIResponder? = self
-        while !(responder is UIViewController) && responder != nil {
-            responder = responder?.next
-        }
-        return responder as? UIViewController
+    func showErrorState(message: String) {
+        adDetailsView.isHidden = true
+        loadingView.stopAnimating()
+        delegate?.showErrorAlert(message: message)
     }
 }
 

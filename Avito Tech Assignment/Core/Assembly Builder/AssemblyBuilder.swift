@@ -7,9 +7,10 @@
 
 import UIKit
 
-final class AssemblyBuilder: AssemblyBuilderProtocol {
+final class AssemblyBuilder {
 
     // MARK: - Private Properties
+    
     private let serviceFactory: ServiceFactoryProtocol
     
     private lazy var networkService = serviceFactory.createNetworkService()
@@ -25,44 +26,51 @@ final class AssemblyBuilder: AssemblyBuilderProtocol {
     }()
     
     // MARK: - Dependencies
+    
     init(serviceFactory: ServiceFactoryProtocol = DefaultServiceFactory()) {
         self.serviceFactory = serviceFactory
     }
-    
-    // MARK: - AssemblyBuilderProtocol
-    func createInitialSetup() -> (UINavigationController, Router) {
+}
+
+// MARK: - AssemblyBuilderProtocol
+
+extension AssemblyBuilder: AssemblyBuilderProtocol {
+    func createInitialSetup() -> (UINavigationController, RouterProtocol) {
         let navigationController = UINavigationController()
         let router = Router(navigationController: navigationController, assemblyBuilder: self)
         return (navigationController, router)
     }
     
     func createAdvertisementsViewController(router: RouterProtocol) -> UIViewController {
-        let view = AdvertisementView()
         
-        let viewController = AdvertisementsViewController(
+        let view = AdvertisementsViewController()
+        view.title = AppData.advertisementsVCTitle
+        
+        let presenter = AdvertisementPresenter(
+            view: view,
             advertisementService: advertisementService,
             imageService: imageService,
-            router: router,
-            view: view
+            router: router
         )
+        view.presenter = presenter
         
-        viewController.title = AppData.advertisementsVCTitle
-        
-        return viewController
+        return view
     }
     
     func createAdvertisementDetailViewController(advertisementId: String, router: RouterProtocol) -> UIViewController {
-        let view = AdvertisementDetailView()
         
-        let viewController = AdvertisementDetailViewController(
+        let view = AdvertisementDetailViewController()
+        view.title = AppData.adDetailVCTitle
+        
+        let presenter = AdvertisementDetailPresenter(
+            view: view,
             advertisementId: advertisementId,
             advertisementService: advertisementService,
-            imageService: imageService,
-            view: view
+            imageService: imageService
         )
+            
+        view.presenter = presenter
         
-        viewController.title = AppData.adDetailVCTitle
-        
-        return viewController
+        return view
     }
 }

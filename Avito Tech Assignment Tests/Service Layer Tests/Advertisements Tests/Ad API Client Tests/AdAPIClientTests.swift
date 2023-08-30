@@ -21,9 +21,9 @@ final class AdAPIClientTests: XCTestCase {
     }
     
     override func tearDown() {
-        super.tearDown()
         mockNetworkService = nil
         advertisementApiClient = nil
+        super.tearDown()
     }
     
     func testFetchDataSuccess() {

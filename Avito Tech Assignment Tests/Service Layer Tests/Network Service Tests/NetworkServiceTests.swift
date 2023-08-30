@@ -18,8 +18,8 @@ final class NetworkServiceTests: XCTestCase {
     }
     
     override func tearDown() {
-        super.tearDown()
         networkService = nil
+        super.tearDown()
     }
 
     func testPerformRequestSuccess() {
