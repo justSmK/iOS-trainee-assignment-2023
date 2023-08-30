@@ -9,37 +9,13 @@ import UIKit
 
 final class AdvertisementsViewController: UIViewController {
     
+    var presenter: AdvertisementsPresenterProtocol?
+    
     // MARK: - Private Properties
     
-    private let router: RouterProtocol
-    
-    private let advertisementService: AdvertisementServiceProtocol
-    private let imageService: ImageServiceProtocol
-    
-    private var advertisements: Advertisements = []
-    
-    private let advertisementView: AdvertisementView
+    private let advertisementView: AdvertisementView = AdvertisementView()
     
     private var refreshControl: UIRefreshControl?
-    
-    // MARK: - Initializers
-    
-    init(
-        advertisementService: AdvertisementServiceProtocol,
-        imageService: ImageServiceProtocol,
-        router: RouterProtocol,
-        view: AdvertisementView
-    ) {
-        self.advertisementService = advertisementService
-        self.imageService = imageService
-        self.router = router
-        self.advertisementView = view
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     // MARK: - Life Cycle
     
@@ -50,42 +26,16 @@ final class AdvertisementsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupRefreshControl()
-        advertisementView.configure(dataSourceDelegate: self, refreshControl: refreshControl, tryAgainLoadData: fetchData)
-        fetchData()
+        
+        advertisementView.configure(
+            dataSourceDelegate: self,
+            delegate: self,
+            refreshControl: refreshControl
+        )
+        presenter?.fetchData()
     }
     
     // MARK: - Private Methods
-    
-    private func fetchData() {
-        advertisementView.currentState = .loading
-        advertisementService.fetchAdvertisements { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let response):
-                    self?.advertisementView.currentState = .present
-                    self?.advertisements = response.advertisements
-                case .failure(let error):
-                    self?.advertisementView.currentState = .error("Error: \(error)")
-                }
-            }
-        }
-    }
-    
-    private func fetchImage(for advertisement: Advertisement, completion: @escaping (UIImage?) -> Void) {
-        let itemId = advertisement.id
-        imageService.fetchImage(itemId: itemId) { result in
-            switch result {
-            case .success(let image):
-                DispatchQueue.main.async {
-                    completion(image)
-                }
-            case .failure(let error):
-                print("Error \(error)")
-                completion(nil)
-            }
-        }
-    }
-    
     private func setupRefreshControl() {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
@@ -93,8 +43,36 @@ final class AdvertisementsViewController: UIViewController {
     
     @objc
     private func handleRefreshControl() {
-        fetchData()
+        presenter?.fetchData()
         refreshControl?.endRefreshing()
+    }
+}
+
+// MARK: - AdvertisementViewProtocol
+
+extension AdvertisementsViewController: AdvertisementViewProtocol {
+    func showLoading() {
+        advertisementView.startLoading()
+    }
+    
+    func showPresent() {
+        advertisementView.startPresent()
+    }
+    
+    func showError(message: String) {
+        advertisementView.showError(message: message)
+    }
+}
+
+// MARK: - AdvertisementsErrorViewDelegate
+
+extension AdvertisementsViewController: AdvertisementsErrorViewDelegate {
+    func showErrorAlert(message: String) {
+        let errorAlertController = ErrorViewAlertController(
+            message: message,
+            tryAgainHandler: presenter?.fetchData
+        )
+        present(errorAlertController, animated: true)
     }
 }
 
@@ -102,7 +80,8 @@ final class AdvertisementsViewController: UIViewController {
 
 extension AdvertisementsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return advertisements.count
+        guard let presenter else { return 0 }
+        return presenter.getAdvertisementCount()
     }
     
     func collectionView(
@@ -116,15 +95,7 @@ extension AdvertisementsViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let advertisement = advertisements[indexPath.item]
-
-        cell.currentId = advertisement.id
-        
-        fetchImage(for: advertisement) { image in
-            if cell.currentId == advertisement.id {
-                cell.configure(image: image, advertisementModel: advertisement)
-            }
-        }
+        presenter?.configure(cell: cell, at: indexPath)
         
         return cell
     }
@@ -172,7 +143,6 @@ extension AdvertisementsViewController: UICollectionViewDelegateFlowLayout {
     // MARK: Route to Advertisement Details
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let advertisement = advertisements[indexPath.item]
-        router.showAdvertisementDetails(advertisementId: advertisement.id)
+        presenter?.didSelectItem(at: indexPath)
     }
 }
