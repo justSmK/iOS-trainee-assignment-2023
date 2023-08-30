@@ -53,15 +53,14 @@ final class AdvertisementPresenterTests: XCTestCase {
     }
     
     func testFetchAdvertisementsSuccess() {
-        let expectation = XCTestExpectation(description: "Fetch completed")
+        let expectation = XCTestExpectation(description: "Fetch advertisements")
         let adv1 = Advertisement(id: "", title: "", price: "", location: "", imageURL: URL(string: "google.com")!, createdDate: Date())
         let adv2 = Advertisement(id: "", title: "", price: "", location: "", imageURL: URL(string: "google.com")!, createdDate: Date())
-        
         
         mockAdvertisementService.fetchAdvertisementsResult = .success(AdvertisementsResponse(advertisements: [adv1, adv2]))
         
         presenter.fetchData()
-        
+
         DispatchQueue.main.async {
             expectation.fulfill()
         }

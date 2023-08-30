@@ -12,7 +12,7 @@ final class AdvertisementsViewController: UIViewController {
     private enum Section {
         case main
     }
-
+  
     var presenter: AdvertisementsPresenterProtocol?
     
     // MARK: - Private Properties
@@ -22,7 +22,7 @@ final class AdvertisementsViewController: UIViewController {
     private var refreshControl: UIRefreshControl?
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Advertisement>?
-    
+
     // MARK: - Life Cycle
     
     override func loadView() {
@@ -79,10 +79,11 @@ final class AdvertisementsViewController: UIViewController {
 // MARK: - AdvertisementViewProtocol
 
 extension AdvertisementsViewController: AdvertisementViewProtocol {
+
     func endRefreshing() {
         refreshControl?.endRefreshing()
     }
-    
+  
     func showLoading() {
         advertisementView.startLoading()
     }
@@ -112,6 +113,7 @@ extension AdvertisementsViewController: AdvertisementsErrorViewDelegate {
 // MARK: - UICollectionViewDelegate
 
 extension AdvertisementsViewController: UICollectionViewDelegate {
+  
     // MARK: Route to Advertisement Details
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -16,7 +16,6 @@ final class AdvertisementView: UIView {
     private let loadingView: LoadingViewProtocol = LoadingView()
     
     private let advertisementCollectionView = AdvertisementCollectionView()
-
     
     // MARK: - Initializers
     
