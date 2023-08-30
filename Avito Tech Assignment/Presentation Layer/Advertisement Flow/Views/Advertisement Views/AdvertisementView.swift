@@ -8,24 +8,12 @@
 import UIKit
 
 final class AdvertisementView: UIView {
-    
-    enum State {
-        case loading
-        case present
-        case error(String)
-    }
-    
-    var currentState: State = .loading {
-        didSet {
-            updateState()
-        }
-    }
-    
+
     // MARK: - Private Properties
     
-    private let loadingView: LoadingViewProtocol = LoadingView()
+    private weak var delegate: AdvertisementsErrorViewDelegate?
     
-    private var tryAgainLoadData: (() -> Void)?
+    private let loadingView: LoadingViewProtocol = LoadingView()
     
     private let advertisementCollectionView = AdvertisementCollectionView()
     
@@ -45,45 +33,27 @@ final class AdvertisementView: UIView {
     
     // MARK: - Internal Methods
     
-    func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols, refreshControl: UIRefreshControl?, tryAgainLoadData: (() -> Void)?) {
+    func configure(dataSourceDelegate: AdvertisementCollectionViewProtocols, delegate: AdvertisementsErrorViewDelegate, refreshControl: UIRefreshControl?) {
         advertisementCollectionView.configure(dataSourceDelegate: dataSourceDelegate)
-        self.tryAgainLoadData = tryAgainLoadData
+        self.delegate = delegate
         self.advertisementCollectionView.refreshControl = refreshControl
     }
     
-    // MARK: - Private Methods
-    
-    private func updateState() {
-        
-        switch currentState {
-            
-        case .loading:
-            advertisementCollectionView.isHidden = true
-            loadingView.startAnimating()
-        case .present:
-            advertisementCollectionView.isHidden = false
-            advertisementCollectionView.reloadData()
-            loadingView.stopAnimating()
-        case .error(let message):
-            advertisementCollectionView.isHidden = true
-            loadingView.stopAnimating()
-            showErrorAlert(message: message)
-        }
+    func startLoading() {
+        advertisementCollectionView.isHidden = true
+        loadingView.startAnimating()
     }
     
-    private func showErrorAlert(message: String) {
-        if let viewController = self.findViewController() {
-            let errorAlertController = ErrorViewAlertController(message: message, tryAgainHandler: self.tryAgainLoadData)
-            viewController.present(errorAlertController, animated: true)
-        }
+    func startPresent() {
+        advertisementCollectionView.reloadData()
+        advertisementCollectionView.isHidden = false
+        loadingView.stopAnimating()
     }
     
-    private func findViewController() -> UIViewController? {
-        var responder: UIResponder? = self
-        while !(responder is UIViewController) && responder != nil {
-            responder = responder?.next
-        }
-        return responder as? UIViewController
+    func showError(message: String) {
+        advertisementCollectionView.isHidden = true
+        loadingView.stopAnimating()
+        delegate?.showErrorAlert(message: message)
     }
 }
 
