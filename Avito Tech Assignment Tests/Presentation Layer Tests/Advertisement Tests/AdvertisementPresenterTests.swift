@@ -52,6 +52,25 @@ final class AdvertisementPresenterTests: XCTestCase {
         XCTAssertTrue(mockAdvertisementService.isFetchAdvertisementsCalled)
     }
     
+    func testFetchAdvertisementsSuccess() {
+        let expectation = XCTestExpectation(description: "Fetch completed")
+        let adv1 = Advertisement(id: "", title: "", price: "", location: "", imageURL: URL(string: "google.com")!, createdDate: Date())
+        let adv2 = Advertisement(id: "", title: "", price: "", location: "", imageURL: URL(string: "google.com")!, createdDate: Date())
+        
+        
+        mockAdvertisementService.fetchAdvertisementsResult = .success(AdvertisementsResponse(advertisements: [adv1, adv2]))
+        
+        presenter.fetchData()
+        
+        DispatchQueue.main.async {
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 1.0)
+        
+        XCTAssertTrue(mockView.isShowPresentCalled)
+    }
+    
     func testFetchAdvertisementsFailure() {
         let expectation = XCTestExpectation(description: "Fetch advertisements failure")
         
