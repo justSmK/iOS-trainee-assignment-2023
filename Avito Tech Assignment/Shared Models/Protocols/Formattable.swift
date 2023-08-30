@@ -16,6 +16,7 @@ extension Formattable {
     var formattedCreatedDate: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE, d MMM yyyy"
+        dateFormatter.locale = Locale(identifier: "ru_RU")
         let formatted = dateFormatter.string(from: createdDate)
         // For Russian language
         let capitalizedDate = formatted.prefix(1).uppercased() + formatted.dropFirst()
