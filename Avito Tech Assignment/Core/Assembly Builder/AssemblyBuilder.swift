@@ -30,7 +30,7 @@ final class AssemblyBuilder: AssemblyBuilderProtocol {
     }
     
     // MARK: - AssemblyBuilderProtocol
-    func createInitialSetup() -> (UINavigationController, Router) {
+    func createInitialSetup() -> (UINavigationController, RouterProtocol) {
         let navigationController = UINavigationController()
         let router = Router(navigationController: navigationController, assemblyBuilder: self)
         return (navigationController, router)
