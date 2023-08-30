@@ -5,11 +5,10 @@
 //  Created by Sergei Semko on 8/30/23.
 //
 
-import Foundation
+import UIKit.UIImage
 
 protocol AdvertisementsPresenterProtocol: AnyObject {
     func fetchData()
-    func getAdvertisementCount() -> Int
-    func configure(cell: AdvertisementCollectionViewCell, at indexPath: IndexPath)
+    func configureCell(at indexPath: IndexPath, completion: @escaping (Advertisement, UIImage?) -> Void)
     func didSelectItem(at indexPath: IndexPath)
 }

@@ -20,7 +20,11 @@ final class MockAdvertisementView: AdvertisementViewProtocol {
         isShowLoadingCalled = true
     }
     
-    func showPresent() {
+    func showPresent(_ advertisements: Avito_Tech_Assignment.Advertisements) {
+        isShowPresentCalled = true
+    }
+    
+    func endRefreshing() {
         isShowPresentCalled = true
     }
     

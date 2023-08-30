@@ -13,8 +13,6 @@ final class AdvertisementCollectionViewCell: UICollectionViewCell {
         return String(describing: AdvertisementCollectionViewCell.self)
     }
     
-    var currentId: String?
-    
     // MARK: - Private Properties
     
     private var advertisement: Advertisement? {
@@ -118,15 +116,15 @@ private extension AdvertisementCollectionViewCell {
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.heightAnchor.constraint(equalTo: contentView.widthAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor),
+            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            priceLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
             priceLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            locationLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor),
+            locationLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 2),
             locationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             locationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             

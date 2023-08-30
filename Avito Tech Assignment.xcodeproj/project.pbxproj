@@ -31,7 +31,6 @@
 		BB542B082A9A142A00B14DEC /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB542B072A9A142A00B14DEC /* Colors.xcassets */; };
 		BB542B0B2A9A161500B14DEC /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB542B0A2A9A161500B14DEC /* UIView + Extensions.swift */; };
 		BB542B0D2A9A354200B14DEC /* AdvertisementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB542B0C2A9A354200B14DEC /* AdvertisementView.swift */; };
-		BB542B162A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB542B152A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift */; };
 		BB63E27F2A9CF2F300E3CA37 /* ImageAPIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB63E27E2A9CF2F300E3CA37 /* ImageAPIClientTests.swift */; };
 		BB63E2812A9CF41400E3CA37 /* ImageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB63E2802A9CF41400E3CA37 /* ImageServiceTests.swift */; };
 		BB63E2852A9CF4DB00E3CA37 /* MockImageAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB63E2842A9CF4DB00E3CA37 /* MockImageAPIClient.swift */; };
@@ -129,7 +128,6 @@
 		BB542B072A9A142A00B14DEC /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		BB542B0A2A9A161500B14DEC /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
 		BB542B0C2A9A354200B14DEC /* AdvertisementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementView.swift; sourceTree = "<group>"; };
-		BB542B152A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewProtocol.swift; sourceTree = "<group>"; };
 		BB63E27E2A9CF2F300E3CA37 /* ImageAPIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAPIClientTests.swift; sourceTree = "<group>"; };
 		BB63E2802A9CF41400E3CA37 /* ImageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceTests.swift; sourceTree = "<group>"; };
 		BB63E2842A9CF4DB00E3CA37 /* MockImageAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageAPIClient.swift; sourceTree = "<group>"; };
@@ -395,14 +393,6 @@
 			path = "Advertisement Flow";
 			sourceTree = "<group>";
 		};
-		BB542B122A9A3FDE00B14DEC /* Contracts */ = {
-			isa = PBXGroup;
-			children = (
-				BB542B152A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift */,
-			);
-			path = Contracts;
-			sourceTree = "<group>";
-		};
 		BB63E27B2A9CE62100E3CA37 /* Images Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,10 +427,17 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		BB70B42F2A9FB9FD0045578B /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Contracts;
+			sourceTree = "<group>";
+		};
 		BB748C8D2A99E201005CB3B1 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				BB542B122A9A3FDE00B14DEC /* Contracts */,
+				BB70B42F2A9FB9FD0045578B /* Contracts */,
 				BB748C8E2A99E207005CB3B1 /* Cells */,
 				BB3898EB2A97BFEF009555FC /* AdvertisementsCollectionView.swift */,
 			);
@@ -1076,7 +1073,6 @@
 				BB1034012A97791A0077F568 /* SceneDelegate.swift in Sources */,
 				BBDD69BB2A9D146900910266 /* AdvertisementDetailView.swift in Sources */,
 				BB542B0B2A9A161500B14DEC /* UIView + Extensions.swift in Sources */,
-				BB542B162A9A400200B14DEC /* AdvertisementCollectionViewProtocol.swift in Sources */,
 				BB0EFFDD2A9A8FDC009BA8B9 /* ResponseModel.swift in Sources */,
 				BB7B8FCB2A9DEFF5007C9417 /* UIStackView + Extensions.swift in Sources */,
 				BB822B192A9CA90900681C2B /* ImageAPIClientProtocol.swift in Sources */,

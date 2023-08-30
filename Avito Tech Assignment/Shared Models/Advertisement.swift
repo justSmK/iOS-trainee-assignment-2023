@@ -9,7 +9,7 @@ import Foundation
 
 typealias Advertisements = [Advertisement]
 
-struct Advertisement: Codable, Formattable {
+struct Advertisement: Codable, Hashable, Formattable {
     let id, title, price, location: String
     let imageURL: URL
     var createdDate: Date
