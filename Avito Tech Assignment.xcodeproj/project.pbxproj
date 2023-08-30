@@ -427,17 +427,9 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
-		BB70B42F2A9FB9FD0045578B /* Contracts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Contracts;
-			sourceTree = "<group>";
-		};
 		BB748C8D2A99E201005CB3B1 /* CollectionView */ = {
 			isa = PBXGroup;
 			children = (
-				BB70B42F2A9FB9FD0045578B /* Contracts */,
 				BB748C8E2A99E207005CB3B1 /* Cells */,
 				BB3898EB2A97BFEF009555FC /* AdvertisementsCollectionView.swift */,
 			);

@@ -9,9 +9,9 @@ import UIKit
 
 final class AdvertisementDetailViewController: UIViewController {
     
-    // MARK: - Private Properties
-    
     var presenter: AdvertisementDetailPresenterProtocol?
+    
+    // MARK: - Private Properties
     
     private let advertisementDetailView: AdvertisementDetailView = AdvertisementDetailView()
     

@@ -24,6 +24,8 @@ final class AdvertisementCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Life Cycle
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -37,6 +39,8 @@ final class AdvertisementCollectionView: UICollectionView {
         self.collectionViewLayout = layout
         isLayoutConfigured = true
     }
+    
+    // MARK: - Private Methods
     
     private func createCompositionalLayout(itemHeight: CGFloat, itemWidth: CGFloat) -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(

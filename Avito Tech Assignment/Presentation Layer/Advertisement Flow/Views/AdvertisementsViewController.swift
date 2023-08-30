@@ -9,13 +9,13 @@ import UIKit
 
 final class AdvertisementsViewController: UIViewController {
     
-    private enum Section {
-        case main
-    }
-  
     var presenter: AdvertisementsPresenterProtocol?
     
     // MARK: - Private Properties
+    
+    private enum Section {
+        case main
+    }
     
     private let advertisementView: AdvertisementView = AdvertisementView()
     
@@ -37,26 +37,37 @@ final class AdvertisementsViewController: UIViewController {
         
         advertisementView.configure(errorDelegate: self, refreshControl: refreshControl) { collectionView in
             collectionView.delegate = self
-            dataSource = UICollectionViewDiffableDataSource<Section, Advertisement>(
-                collectionView: collectionView,
-                cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
-                    guard let cell = collectionView.dequeueReusableCell(
-                        withReuseIdentifier: AdvertisementCollectionViewCell.identifier,
-                        for: indexPath
-                    ) as? AdvertisementCollectionViewCell else {
-                        return UICollectionViewCell()
-                    }
-                    
-                    self?.presenter?.configureCell(at: indexPath, completion: { advertisement, image in
-                        cell.configure(image: image, advertisementModel: advertisement)
-                    })
-                    
-                    return cell
-                })
+            createDataSource(collectionView: collectionView)
         }
     }
     
     // MARK: - Private Methods
+    private func updateCollectionView(with items: [Advertisement]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Advertisement>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(items)
+        dataSource?.apply(snapshot, animatingDifferences: true)
+    }
+    
+    private func createDataSource(collectionView: UICollectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Section, Advertisement>(
+            collectionView: collectionView,
+            cellProvider: { [weak self] collectionView, indexPath, itemIdentifier in
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: AdvertisementCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? AdvertisementCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+                
+                self?.presenter?.configureCell(at: indexPath, completion: { advertisement, image in
+                    cell.configure(image: image, advertisementModel: advertisement)
+                })
+                
+                return cell
+            })
+    }
+    
     private func setupRefreshControl() {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
@@ -66,13 +77,6 @@ final class AdvertisementsViewController: UIViewController {
     private func handleRefreshControl() {
         presenter?.fetchData()
         refreshControl?.endRefreshing()
-    }
-    
-    private func updateCollectionView(with items: [Advertisement]) {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, Advertisement>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(items)
-        dataSource?.apply(snapshot, animatingDifferences: true)
     }
 }
 
